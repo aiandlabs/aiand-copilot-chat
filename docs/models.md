@@ -13,7 +13,7 @@ are enriched from the canonical `aiand` provider in a six-hour models.dev
 snapshot stored in VS Code `globalState`. Stale metadata is returned immediately
 while refresh runs and remains available during models.dev outages.
 
-The fallback snapshot was last verified against live inference on 2026-09-10:
+The fallback snapshot was last verified against live inference on 2026-09-28:
 
 | Model | Context | Max output | Images | Tools | Reasoning efforts (default) |
 | --- | ---: | ---: | :---: | :---: | --- |
@@ -21,7 +21,7 @@ The fallback snapshot was last verified against live inference on 2026-09-10:
 | DeepSeek V4 Flash (`deepseek-ai/deepseek-v4-flash`) | 1M | 128K | No | Yes | **none** · high · max (none) |
 | DeepSeek V4 Pro (`deepseek-ai/deepseek-v4-pro`) | 1M | 128K | No | Yes | **none** · high · max (none) |
 | Kimi K3 (`moonshotai/kimi-k3`) | 1M | 256K | No | Yes | low · high · **max** (max) |
-| Kimi K2.7 Code (`moonshotai/kimi-k2.7-code`) | 256K | 256K | No | Yes | high only (always reasoning) |
+| Kimi K2.7 Code (`moonshotai/kimi-k2.7-code`) | 256K | 256K | Yes | Yes | high only (always reasoning) |
 | GLM 5.3 (`zai-org/glm-5.3`) | 1M | 128K | No | Yes | low · high · **max** (max) |
 | GLM 5.2 (`zai-org/glm-5.2`) | 1M | 128K | No | Yes | none · high · **max** (max) |
 | Gemma 4 31B IT (`google/gemma-4-31b-it`) | 256K | 256K | Yes | Yes | **none** · high (none) |
@@ -54,9 +54,10 @@ control and the `reasoning_effort` request field entirely.
 ## Pricing
 
 The model picker displays each model's live input, cached-input, and output
-pricing from the ai& `/v1/models` response when available. When live pricing
-is missing, the extension falls back to the official rates captured alongside
-the fallback snapshot. See [ai& pricing](https://docs.aiand.com).
+pricing from the ai& `/v1/models` response when available (including the flat
+`cached_input_per_1m` field). When live pricing is missing, the extension
+falls back to the official input, cached-input, and output rates captured
+alongside the fallback snapshot. See [ai& pricing](https://docs.aiand.com).
 
 ## Context window size
 

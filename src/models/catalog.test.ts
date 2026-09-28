@@ -50,7 +50,7 @@ test("provides documented fallback limits", () => {
     toolCalling: true,
     reasoningEfforts: ["none", "high", "max"],
     defaultReasoningEffort: "max",
-    cost: { input: 1, output: 4 },
+    cost: { input: 1, cacheRead: 0.3, output: 4 },
   });
   assert.deepEqual(getModelMetadata("google/gemma-4-31b-it"), {
     id: "google/gemma-4-31b-it",
@@ -62,7 +62,7 @@ test("provides documented fallback limits", () => {
     toolCalling: true,
     reasoningEfforts: ["none", "high"],
     defaultReasoningEffort: "none",
-    cost: { input: 0.2, output: 0.5 },
+    cost: { input: 0.2, cacheRead: 0.05, output: 0.5 },
   });
   assert.equal(formatTokenLimit(1_000_000), "1M");
   assert.equal(formatTokenLimit(262_144), "256K");
@@ -139,6 +139,7 @@ test("reads ai& capabilities arrays and per-million pricing", () => {
       context_window: 262_144,
       capabilities: ["reasoning", "tool_calling", "vision"],
       input_per_1m: "0.20",
+      cached_input_per_1m: "0.05",
       output_per_1m: "0.50",
     },
   ]);
@@ -146,7 +147,7 @@ test("reads ai& capabilities arrays and per-million pricing", () => {
   assert.equal(live.toolCalling, true);
   // capabilities advertise reasoning but no explicit list → fallback efforts apply.
   assert.deepEqual(live.reasoningEfforts, ["none", "high"]);
-  assert.deepEqual(live.cost, { input: 0.2, output: 0.5 });
+  assert.deepEqual(live.cost, { input: 0.2, cacheRead: 0.05, output: 0.5 });
 });
 
 test("fills descriptive and capability metadata from the ai& models.dev snapshot", () => {
@@ -178,6 +179,7 @@ test("prefers live model pricing and falls back to ai&'s official table", () => 
   const [fallback] = orderModelMetadata([{ id: "zai-org/glm-5.2" }]);
   assert.deepEqual(fallback.cost, {
     input: 1,
+    cacheRead: 0.3,
     output: 4,
   });
 });

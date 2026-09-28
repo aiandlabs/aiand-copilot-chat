@@ -75,6 +75,7 @@ export interface AiandApiModel {
   readonly pricing?: unknown;
   readonly input_per_1m?: unknown;
   readonly output_per_1m?: unknown;
+  readonly cached_input_per_1m?: unknown;
   readonly tool_calling?: unknown;
   readonly tool_call?: unknown;
   readonly reasoning_effort?: unknown;
@@ -114,7 +115,7 @@ export const FALLBACK_MODEL_METADATA: readonly AiandModelMetadata[] = [
   model("deepseek-ai/deepseek-v4-flash", 1_000_000, 131_072),
   model("deepseek-ai/deepseek-v4-pro", 1_000_000, 131_072),
   model("moonshotai/kimi-k3", 1_000_000, 262_144),
-  model("moonshotai/kimi-k2.7-code", 262_144, 262_144),
+  model("moonshotai/kimi-k2.7-code", 262_144, 262_144, true),
   model("zai-org/glm-5.3", 1_000_000, 131_072),
   model("zai-org/glm-5.2", 1_000_000, 131_072),
   model("google/gemma-4-31b-it", 262_144, 262_144, true),
@@ -322,7 +323,11 @@ function liveContextLength(raw: AiandApiModel): number | undefined {
 /** ai& also reports flat `input_per_1m` / `output_per_1m` decimal strings; map them to pricing shape. */
 function pickPerMillionPricing(raw: AiandApiModel): Record<string, unknown> | undefined {
   if (raw.input_per_1m === undefined && raw.output_per_1m === undefined) return undefined;
-  return { prompt: raw.input_per_1m, completion: raw.output_per_1m };
+  return {
+    prompt: raw.input_per_1m,
+    completion: raw.output_per_1m,
+    ...(raw.cached_input_per_1m === undefined ? {} : { cache_prompt: raw.cached_input_per_1m }),
+  };
 }
 
 function record(value: unknown): Record<string, unknown> | undefined {
