@@ -13,17 +13,17 @@ export interface ModelPricingFields {
 }
 
 const OFFICIAL_MODEL_COSTS: Readonly<Record<string, ModelCost>> = {
-  "openai/gpt-oss-120b": { input: 0.15, output: 0.6 },
-  "deepseek-ai/deepseek-v4-flash": { input: 0.15, output: 0.25 },
-  "deepseek-ai/deepseek-v4-pro": { input: 1, output: 2.5 },
-  "moonshotai/kimi-k3": { input: 3, output: 12.5 },
-  "moonshotai/kimi-k2.7-code": { input: 0.75, output: 3.5 },
-  "zai-org/glm-5.3": { input: 1, output: 4 },
-  "zai-org/glm-5.2": { input: 1, output: 4 },
-  "google/gemma-4-31b-it": { input: 0.2, output: 0.5 },
-  "qwen/qwen3.8-27b": { input: 0.4, output: 3 },
-  "qwen/qwen3.6-27b": { input: 0.32, output: 3.2 },
-  "motif-technologies/motif-3": { input: 0.5, output: 2 },
+  "openai/gpt-oss-120b": { input: 0.15, cacheRead: 0.08, output: 0.6 },
+  "deepseek-ai/deepseek-v4-flash": { input: 0.15, cacheRead: 0.08, output: 0.25 },
+  "deepseek-ai/deepseek-v4-pro": { input: 1, cacheRead: 0.25, output: 2.5 },
+  "moonshotai/kimi-k3": { input: 3, cacheRead: 0.5, output: 12.5 },
+  "moonshotai/kimi-k2.7-code": { input: 0.75, cacheRead: 0.2, output: 3.5 },
+  "zai-org/glm-5.3": { input: 1, cacheRead: 0.3, output: 4 },
+  "zai-org/glm-5.2": { input: 1, cacheRead: 0.3, output: 4 },
+  "google/gemma-4-31b-it": { input: 0.2, cacheRead: 0.05, output: 0.5 },
+  "qwen/qwen3.8-27b": { input: 0.4, cacheRead: 0.2, output: 3 },
+  "qwen/qwen3.6-27b": { input: 0.32, cacheRead: 0.2, output: 3.2 },
+  "motif-technologies/motif-3": { input: 0.5, cacheRead: 0.2, output: 2 },
 };
 
 export function aiandModelCost(id: string, discovered?: ModelCost): ModelCost | undefined {
@@ -61,8 +61,9 @@ export function modelPricingFields(cost: ModelCost | undefined): ModelPricingFie
       priceCategory: "low",
     };
   }
+  const cached = cost.cacheRead === undefined ? "" : ` · Cached: $${formatPrice(cost.cacheRead)}`;
   return {
-    pricing: `In: $${formatPrice(cost.input)} · Out: $${formatPrice(cost.output)} /1M tokens`,
+    pricing: `In: $${formatPrice(cost.input)}${cached} · Out: $${formatPrice(cost.output)} /1M tokens`,
     inputCost: Math.round(cost.input * 100),
     outputCost: Math.round(cost.output * 100),
     ...(cost.cacheRead === undefined ? {} : { cacheCost: Math.round(cost.cacheRead * 100) }),

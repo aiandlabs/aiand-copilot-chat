@@ -18,7 +18,7 @@ test("passes through ai& per-million API rates without per-token scaling", () =>
 
 test("converts USD per-million rates to VS Code pricing fields", () => {
   assert.deepEqual(modelPricingFields({ input: 0.18, cacheRead: 0.04, output: 0.35 }), {
-    pricing: "In: $0.18 · Out: $0.35 /1M tokens",
+    pricing: "In: $0.18 · Cached: $0.04 · Out: $0.35 /1M tokens",
     inputCost: 18,
     outputCost: 35,
     cacheCost: 4,
@@ -28,8 +28,8 @@ test("converts USD per-million rates to VS Code pricing fields", () => {
 });
 
 test("uses current official rates when live metadata omits pricing", () => {
-  assert.deepEqual(aiandModelCost("openai/gpt-oss-120b"), { input: 0.15, output: 0.6 });
-  assert.deepEqual(aiandModelCost("google/gemma-4-31b-it"), { input: 0.2, output: 0.5 });
+  assert.deepEqual(aiandModelCost("openai/gpt-oss-120b"), { input: 0.15, cacheRead: 0.08, output: 0.6 });
+  assert.deepEqual(aiandModelCost("google/gemma-4-31b-it"), { input: 0.2, cacheRead: 0.05, output: 0.5 });
   assert.deepEqual(aiandModelCost("deepseek-ai/deepseek-v4-pro", { input: 1, output: 2 }), { input: 1, output: 2 });
   assert.equal(aiandModelCost("future-model"), undefined);
 });
