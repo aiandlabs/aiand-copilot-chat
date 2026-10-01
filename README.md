@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/grikomsn/aiand-copilot-chat/main/assets/cover.jpg" alt="ai& and GitHub Copilot" width="960">
+  <img src="https://raw.githubusercontent.com/aiandlabs/aiand-copilot-chat/main/assets/cover.jpg" alt="ai& and GitHub Copilot" width="960">
 </p>
 
 <h1 align="center">ai& for GitHub Copilot Chat</h1>
@@ -7,9 +7,9 @@
 <p align="center">Use ai& models directly from the GitHub Copilot Chat model picker in Visual Studio Code.</p>
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=grikomsn.aiand-copilot-chat"><img src="https://img.shields.io/visual-studio-marketplace/v/grikomsn.aiand-copilot-chat?style=flat-square&logo=visualstudiocode&label=Marketplace" alt="Visual Studio Marketplace version"></a>
-  <a href="https://github.com/grikomsn/aiand-copilot-chat/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/grikomsn/aiand-copilot-chat/ci.yml?branch=main&style=flat-square&label=CI" alt="CI status"></a>
-  <a href="https://github.com/grikomsn/aiand-copilot-chat/blob/main/LICENSE"><img src="https://img.shields.io/github/license/grikomsn/aiand-copilot-chat?style=flat-square" alt="MIT license"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=aiand.aiand-copilot-chat"><img src="https://img.shields.io/visual-studio-marketplace/v/aiand.aiand-copilot-chat?style=flat-square&logo=visualstudiocode&label=Marketplace" alt="Visual Studio Marketplace version"></a>
+  <a href="https://github.com/aiandlabs/aiand-copilot-chat/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/aiandlabs/aiand-copilot-chat/ci.yml?branch=main&style=flat-square&label=CI" alt="CI status"></a>
+  <a href="https://github.com/aiandlabs/aiand-copilot-chat/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aiandlabs/aiand-copilot-chat?style=flat-square" alt="MIT license"></a>
 </p>
 
 This extension is a native VS Code `LanguageModelChatProvider`. It validates a user-supplied ai& API key, discovers the models available to that key, and streams OpenAI-compatible chat completions directly from `https://api.aiand.com/v1` into Copilot Chat.
@@ -45,12 +45,8 @@ For models that support configurable reasoning, choose **None**, **Low**, **Medi
 - [API key and security model](docs/security.md)
 - [Development and releases](docs/development.md)
 
-## Related projects
+## Credits
 
-- [Grok for GitHub Copilot Chat](https://github.com/grikomsn/grok-copilot-chat)
-- [Codex Bridge for Copilot Chat](https://github.com/grikomsn/openai-oauth-copilot-chat)
-- [Ollama Cloud for GitHub Copilot Chat](https://github.com/grikomsn/ollama-cloud-copilot-chat)
-- [OpenCode for GitHub Copilot Chat](https://github.com/grikomsn/opencode-copilot-chat)
-- [Poolside for GitHub Copilot Chat](https://github.com/grikomsn/poolside-copilot-chat)
+Officially maintained by [ai&](https://www.aiand.com). Originally created by [Griko Nibras](https://github.com/grikomsn), who handed the project over to ai&. Everyone else who has helped is listed in [THANKS.md](THANKS.md).
 
-Unofficial project; not affiliated with ai&, GitHub, or Microsoft. ai& usage limits and charges still apply. Licensed under [MIT](LICENSE).
+Not affiliated with GitHub or Microsoft. ai& usage limits and charges apply. Licensed under [MIT](LICENSE).

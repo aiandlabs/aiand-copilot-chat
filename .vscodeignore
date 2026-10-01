@@ -1,7 +1,6 @@
 .github/**
 .changeset/**
 .vscode/**
-.codex/**
 docs/**
 assets/cover.jpg
 assets/Aiand*/**
@@ -12,6 +11,7 @@ tmp/**
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 SECURITY.md
+THANKS.md
 AGENTS.md
 src/**
 scripts/**

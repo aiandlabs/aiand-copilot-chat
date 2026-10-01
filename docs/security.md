@@ -27,4 +27,4 @@ When `aiandCopilot.inlineSuggestions` is enabled, each suggestion sends a bounde
 
 Debug logging is disabled by default. When enabled, the ai& output channel records model discovery, request metadata, token usage, and errors; it does not intentionally log prompts or API keys.
 
-Report vulnerabilities according to the [security policy](https://github.com/grikomsn/aiand-copilot-chat/security/policy) or email [security@nibras.co](mailto:security@nibras.co). Do not disclose credentials, sensitive prompts, or vulnerability details in a public issue.
+Report vulnerabilities according to the [security policy](https://github.com/aiandlabs/aiand-copilot-chat/security/policy), through [GitHub Security Advisories](https://github.com/aiandlabs/aiand-copilot-chat/security/advisories/new). Do not disclose credentials, sensitive prompts, or vulnerability details in a public issue.

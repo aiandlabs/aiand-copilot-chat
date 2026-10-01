@@ -2,11 +2,11 @@
 
 ## Supported versions
 
-Security fixes target the latest version published on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=grikomsn.aiand-copilot-chat). Update to the latest release before reporting an issue that may already be fixed.
+Security fixes target the latest version published on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=aiand.aiand-copilot-chat). Update to the latest release before reporting an issue that may already be fixed.
 
 ## Reporting a vulnerability
 
-Email [security@nibras.co](mailto:security@nibras.co). Do not open a public issue or discussion.
+Report it privately through [GitHub Security Advisories](https://github.com/aiandlabs/aiand-copilot-chat/security/advisories/new) for this repository. Do not open a public issue or discussion.
 
 Include, when applicable:
 
