@@ -20,7 +20,7 @@ The fallback snapshot was last verified against live inference on 2026-09-28:
 | GPT OSS 120B (`openai/gpt-oss-120b`) | 128K | 128K | No | Yes | low · medium · **high** (medium) |
 | DeepSeek V4 Flash (`deepseek-ai/deepseek-v4-flash`) | 1M | 128K | No | Yes | **none** · high · max (none) |
 | DeepSeek V4 Pro (`deepseek-ai/deepseek-v4-pro`) | 1M | 128K | No | Yes | **none** · high · max (none) |
-| Kimi K3 (`moonshotai/kimi-k3`) | 1M | 256K | No | Yes | low · high · **max** (max) |
+| Kimi K3 (`moonshotai/kimi-k3`) | 1M | 256K | Yes | Yes | low · high · **max** (max) |
 | Kimi K2.7 Code (`moonshotai/kimi-k2.7-code`) | 256K | 256K | Yes | Yes | high only (always reasoning) |
 | GLM 5.3 (`zai-org/glm-5.3`) | 1M | 128K | No | Yes | low · high · **max** (max) |
 | GLM 5.2 (`zai-org/glm-5.2`) | 1M | 128K | No | Yes | none · high · **max** (max) |

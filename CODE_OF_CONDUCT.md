@@ -16,4 +16,4 @@ Harassment, discrimination, threats, sexualized attention, deliberate disruption
 
 This code applies to repository activity and other spaces where someone represents the project. Maintainers may edit or remove contributions and may temporarily or permanently restrict participation when conduct harms the community.
 
-Report conduct concerns privately to [griko@nibras.co](mailto:griko@nibras.co). Reports will be reviewed discreetly; disclose only the information needed to investigate.
+Report conduct concerns privately to [support@aiand.com](mailto:support@aiand.com) with "Code of Conduct" in the subject. Reports will be reviewed discreetly; disclose only the information needed to investigate.

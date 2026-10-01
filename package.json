@@ -1,19 +1,24 @@
 {
   "name": "aiand-copilot-chat",
-  "displayName": "ai& for GitHub Copilot Chat",
+  "displayName": "ai& for GitHub Copilot",
   "description": "Use hosted ai& models in GitHub Copilot Chat with your ai& API key.",
   "version": "0.2.2",
-  "publisher": "grikomsn",
+  "publisher": "aiand",
+  "author": "ai&",
+  "contributors": [
+    "Griko Nibras (https://github.com/grikomsn)"
+  ],
   "icon": "assets/icon.png",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/grikomsn/aiand-copilot-chat.git"
+    "url": "https://github.com/aiandlabs/aiand-copilot-chat.git"
   },
   "bugs": {
-    "url": "https://github.com/grikomsn/aiand-copilot-chat/issues"
+    "url": "https://github.com/aiandlabs/aiand-copilot-chat/issues"
   },
-  "homepage": "https://github.com/grikomsn/aiand-copilot-chat#readme",
+  "homepage": "https://github.com/aiandlabs/aiand-copilot-chat#readme",
+  "qna": "https://github.com/aiandlabs/aiand-copilot-chat/discussions",
   "engines": {
     "vscode": "^1.125.0"
   },
@@ -76,7 +81,7 @@
       }
     ],
     "configuration": {
-      "title": "ai& for Copilot Chat",
+      "title": "ai& for GitHub Copilot",
       "properties": {
         "aiandCopilot.inlineSuggestions": {
           "type": "boolean",
