@@ -34,11 +34,12 @@
 - Keep API keys in VS Code Secret Storage or VS Code-managed provider configuration. Never log or commit keys, private prompts, captured responses, or account data.
 - Requests must use the fixed ai& endpoint and user agent from `src/transport/protocol.ts`; never redirect credentials through a workspace-configurable endpoint.
 - Treat ai& and OpenAI-compatible response behavior as an undocumented integration surface. Parse defensively and keep protocol-specific behavior covered by tests.
-- When commands, settings, models, security behavior, or user workflows change, keep `package.json`, tests, documentation, and Changesets synchronized.
+- When commands, settings, models, security behavior, or user workflows change, keep `package.json`, tests, documentation, and `CHANGELOG.md` synchronized.
 - Do not commit generated `out/`, source maps, VSIX files, logs, or unrelated formatting/dependency churn.
 
 ## Before handing off
 
 - Run the narrowest relevant test while iterating, then `npm run check`.
 - Also run `npm run package` for manifest, packaging, or release-facing changes. Live authentication checks belong in the Extension Development Host.
-- Add a Changeset with `npm run changeset` for user-visible published-extension changes. Documentation, tests, and repository-maintenance-only changes do not require one.
+- Add a `CHANGELOG.md` entry under `## [Unreleased]` for user-visible published-extension changes. Documentation, tests, and repository-maintenance-only changes do not need one. Released sections are never edited.
+- Never publish from a branch or a merge: releases go through `npm run release` and a pushed `v<version>` tag (see `docs/development.md`).

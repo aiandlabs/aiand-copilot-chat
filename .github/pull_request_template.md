@@ -11,5 +11,5 @@
 - [ ] The change is focused and contains no unrelated churn.
 - [ ] Tests pass with `npm test`.
 - [ ] Packaging passes with `npm run package`.
-- [ ] User-visible changes include a Changeset; otherwise, this is not applicable.
+- [ ] User-visible changes have a `CHANGELOG.md` entry under `## [Unreleased]`; otherwise, this is not applicable.
 - [ ] Relevant documentation is updated; otherwise, this is not applicable.
