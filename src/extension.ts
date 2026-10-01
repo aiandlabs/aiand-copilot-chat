@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext): void {
   );
 
   output.appendLine(
-    `[activate] ai& for Copilot Chat ${context.extension.packageJSON.version} on VS Code ${vscode.version}`,
+    `[activate] ai& for GitHub Copilot ${context.extension.packageJSON.version} on VS Code ${vscode.version}`,
   );
   void auth.hasApiKey().then((configured) => {
     if (!configured) return;

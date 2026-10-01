@@ -10,7 +10,7 @@ A paid Copilot plan is not required for a bring-your-own-key language model prov
 
 ## Install and connect
 
-1. Install **ai& for GitHub Copilot Chat**.
+1. Install **ai& for GitHub Copilot**.
 2. Create a key in the [ai& dashboard](https://console.aiand.com/settings/api-keys).
 3. In Copilot Chat, open the model picker, select **Manage Models**, add a **ai&** provider entry, and enter the key.
 4. Select an available ai& model.

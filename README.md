@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/aiandlabs/aiand-copilot-chat/main/assets/cover.jpg" alt="ai&" width="960">
 </p>
 
-<h1 align="center">ai& for GitHub Copilot Chat</h1>
+<h1 align="center">ai& for GitHub Copilot</h1>
 
 <p align="center">Use ai& models directly from the GitHub Copilot Chat model picker in Visual Studio Code.</p>
 

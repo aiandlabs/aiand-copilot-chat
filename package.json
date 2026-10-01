@@ -1,6 +1,6 @@
 {
   "name": "aiand-copilot-chat",
-  "displayName": "ai& for GitHub Copilot Chat",
+  "displayName": "ai& for GitHub Copilot",
   "description": "Use hosted ai& models in GitHub Copilot Chat with your ai& API key.",
   "version": "0.2.2",
   "publisher": "aiand",
@@ -81,7 +81,7 @@
       }
     ],
     "configuration": {
-      "title": "ai& for Copilot Chat",
+      "title": "ai& for GitHub Copilot",
       "properties": {
         "aiandCopilot.inlineSuggestions": {
           "type": "boolean",

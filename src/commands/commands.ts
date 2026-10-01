@@ -229,7 +229,7 @@ function toUsageQuickPickItem(row: UsageDisplayRow): UsageQuickPickItem {
 async function diagnostics(auth: AiandAuth, output: vscode.OutputChannel): Promise<void> {
   const models = await vscode.lm.selectChatModels({ vendor: "aiand" });
   const lines = [
-    "# ai& for Copilot Chat diagnostics",
+    "# ai& for GitHub Copilot diagnostics",
     "",
     `- VS Code: ${vscode.version}`,
     `- API endpoint: ${API_BASE}`,
