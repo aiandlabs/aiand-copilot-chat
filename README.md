@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aiandlabs/aiand-copilot-chat/main/assets/cover.jpg" alt="ai& and GitHub Copilot" width="960">
+  <img src="https://raw.githubusercontent.com/aiandlabs/aiand-copilot-chat/main/assets/cover.jpg" alt="ai&" width="960">
 </p>
 
 <h1 align="center">ai& for GitHub Copilot Chat</h1>
