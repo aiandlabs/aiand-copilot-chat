@@ -102,7 +102,7 @@ jobs:
       - name: Publish to the Visual Studio Marketplace
         run: |
           set -euo pipefail
-          VSIX="aiand-copilot-chat-${GITHUB_REF_NAME#v}.vsix"
+          VSIX="$(node -p "require('./package.json').name")-${GITHUB_REF_NAME#v}.vsix"
           if [ -n "${AZURE_CLIENT_ID}" ]; then
             npx --no-install vsce publish --packagePath "$VSIX" --azure-credential
           elif [ -n "${VSCE_PAT}" ]; then
@@ -117,7 +117,8 @@ jobs:
       # Release notes are the version's CHANGELOG section, not generated ones.
       - run: |
           node scripts/release.mjs notes "${GITHUB_REF_NAME#v}" > "$RUNNER_TEMP/notes.md"
-          gh release create "$GITHUB_REF_NAME" "aiand-copilot-chat-${GITHUB_REF_NAME#v}.vsix" \
+          VSIX="$(node -p "require('./package.json').name")-${GITHUB_REF_NAME#v}.vsix"
+          gh release create "$GITHUB_REF_NAME" "$VSIX" \
             --verify-tag --notes-file "$RUNNER_TEMP/notes.md" --title "$GITHUB_REF_NAME"
         env:
           GH_TOKEN: ${{ github.token }}

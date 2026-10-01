@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 Versioning follows semver. Versions up to 0.2.2 were published by the original
 author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
-`aiand.aiand-copilot-chat`.
+`aiand.aiand-copilot`.
 
 ## [Unreleased]
 
@@ -12,7 +12,7 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ### Changed
 
-- The extension is now published by ai& as `aiand.aiand-copilot-chat` and
+- The extension is now published by ai& as `aiand.aiand-copilot` and
   maintained in the [aiandlabs](https://github.com/aiandlabs) GitHub
   organization. Thanks to Griko Nibras (@grikomsn), who created it.
 - New ai& icon and cover artwork.
