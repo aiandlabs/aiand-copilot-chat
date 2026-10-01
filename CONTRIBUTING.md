@@ -21,13 +21,7 @@ npm run package
 
 Add or update tests when behavior changes. Do not include generated `out/` files, `.env` files, API keys, or VSIX artifacts in commits.
 
-User-visible changes need a Changeset:
-
-```bash
-npm run changeset
-```
-
-Documentation, tests, and repository-maintenance-only changes do not need one.
+User-visible changes need a `CHANGELOG.md` entry under `## [Unreleased]`. Documentation, tests, and repository-maintenance-only changes do not need one. Released sections are never edited.
 
 ## How pull requests are reviewed
 
@@ -36,7 +30,7 @@ This project is maintained by the ai& team. Anyone can open a pull request:
 - **Outside contributors:** fork the repository and open a pull request from your fork. A maintainer approves the CI run for first-time and external contributors, then reviews the change.
 - **Maintainers:** work on a branch in this repository. Every pull request, including a maintainer's own, needs an approving review from a different maintainer.
 - Pull requests merge into `main` only after CI passes and a maintainer other than the author approves.
-- Releases to the Visual Studio Marketplace are published by maintainers through the release workflow; contributors never need publishing credentials.
+- Releases to the Visual Studio Marketplace are published by maintainers by pushing a version tag (see [Releasing](docs/development.md#releasing)); contributors never need publishing credentials.
 
 ## Credit
 
