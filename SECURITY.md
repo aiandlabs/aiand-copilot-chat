@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Security fixes target the latest version published on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=aiand.aiand-copilot-chat). Update to the latest release before reporting an issue that may already be fixed.
+Security fixes target the latest version published on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=aiand.aiand-copilot). Update to the latest release before reporting an issue that may already be fixed.
 
 ## Reporting a vulnerability
 

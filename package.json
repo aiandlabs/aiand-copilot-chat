@@ -1,5 +1,5 @@
 {
-  "name": "aiand-copilot-chat",
+  "name": "aiand-copilot",
   "displayName": "ai& for GitHub Copilot",
   "description": "Use hosted ai& models in GitHub Copilot Chat with your ai& API key.",
   "version": "1.0.0",

@@ -13,7 +13,7 @@ Tests are colocated with the modules they cover under `src/auth/`, `src/models/`
 Install the local build with:
 
 ```bash
-code --install-extension aiand-copilot-chat-<version>.vsix --force
+code --install-extension aiand-copilot-<version>.vsix --force
 ```
 
 The packaged extension contains compiled runtime files, Marketplace metadata, the changelog, license, README, and icon. Source, tests, maps, repository automation, project documentation, secrets, and local build artifacts are excluded by `.vscodeignore`.
@@ -50,7 +50,7 @@ A tag runs `publish.yml` as it exists at the tagged commit, so its checks only p
 ### If a release fails halfway
 
 - **Before the Marketplace publish** (a check or `npm run package` failed): fix it on `main`, delete the tag (`git push --delete origin v<version>` and `git tag -d v<version>`), and tag again once CI is green.
-- **After the Marketplace publish** (only `gh release create` failed): re-running the workflow stops at the "already on the Marketplace" check, so create the GitHub release by hand from the tag: `npm ci && npm run package`, then `node scripts/release.mjs notes <version> > notes.md` and `gh release create v<version> aiand-copilot-chat-<version>.vsix --verify-tag --notes-file notes.md --title v<version>`.
+- **After the Marketplace publish** (only `gh release create` failed): re-running the workflow stops at the "already on the Marketplace" check, so create the GitHub release by hand from the tag: `npm ci && npm run package`, then `node scripts/release.mjs notes <version> > notes.md` and `gh release create v<version> aiand-copilot-<version>.vsix --verify-tag --notes-file notes.md --title v<version>`.
 
 ## References
 

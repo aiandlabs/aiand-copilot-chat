@@ -7,7 +7,7 @@
 <p align="center">Use ai& models directly from the GitHub Copilot Chat model picker in Visual Studio Code.</p>
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=aiand.aiand-copilot-chat"><img src="https://img.shields.io/visual-studio-marketplace/v/aiand.aiand-copilot-chat?style=flat-square&logo=visualstudiocode&label=Marketplace" alt="Visual Studio Marketplace version"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=aiand.aiand-copilot"><img src="https://img.shields.io/visual-studio-marketplace/v/aiand.aiand-copilot?style=flat-square&logo=visualstudiocode&label=Marketplace" alt="Visual Studio Marketplace version"></a>
   <a href="https://github.com/aiandlabs/aiand-copilot-chat/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/aiandlabs/aiand-copilot-chat/ci.yml?branch=main&style=flat-square&label=CI" alt="CI status"></a>
   <a href="https://github.com/aiandlabs/aiand-copilot-chat/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aiandlabs/aiand-copilot-chat?style=flat-square" alt="MIT license"></a>
 </p>
