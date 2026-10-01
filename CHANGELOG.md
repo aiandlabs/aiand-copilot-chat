@@ -8,6 +8,8 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-01
+
 ### Changed
 
 - The extension is now published by ai& as `aiand.aiand-copilot-chat` and

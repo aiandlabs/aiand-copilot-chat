@@ -2,7 +2,7 @@
   "name": "aiand-copilot-chat",
   "displayName": "ai& for GitHub Copilot",
   "description": "Use hosted ai& models in GitHub Copilot Chat with your ai& API key.",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "publisher": "aiand",
   "author": "ai&",
   "contributors": [
