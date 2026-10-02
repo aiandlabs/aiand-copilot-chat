@@ -8,6 +8,8 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-02
+
 ### Fixed
 
 - Each ai& model is listed once. The built-in **ai&** group no longer shows
