@@ -8,6 +8,18 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ## [Unreleased]
 
+### Fixed
+
+- Each ai& model is listed once. The built-in **ai&** group no longer shows
+  a keyless copy of the catalog next to the provider entry you added in
+  Manage Models; it lists models only after **ai&: Configure API Key** has
+  stored a key, and steps aside when a provider entry uses that same key.
+- A key ai& rejects (HTTP 401/403) now lists no models and shows a warning
+  naming the group, instead of offering a fallback catalog that would fail on
+  every request.
+- Saving or removing a key with **ai&: Configure API Key** in one VS Code
+  window now updates the model picker in the others.
+
 ## [1.0.0] - 2026-10-01
 
 ### Changed

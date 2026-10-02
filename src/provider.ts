@@ -29,9 +29,9 @@ import { parseCatalogSnapshots } from "./models/cache";
 import { ModelsDevMetadata } from "./models/metadata";
 import { ChatCompletionStreamParser, validateStreamCompletion } from "./transport/sse";
 import { AIAND_ENDPOINTS, aiandHeaders } from "./transport/protocol";
-import { apiError } from "./transport/errors";
+import { apiError, isRejectedKey } from "./transport/errors";
 import { mergeAccountUsage, recordRequestUsage, type AiandUsageSnapshot } from "./usage/domain";
-import { apiKeyFromConfiguration, credentialRefForApiKey, qualifiedModelId } from "./provider-profile";
+import { qualifiedModelId, resolveCredential } from "./provider-profile";
 import { isTransientNetworkError, isTransientServerError, retryDelayMs } from "./provider/retry";
 import { messageToText } from "./provider/messages";
 import { buildRequest } from "./provider/request";
@@ -58,6 +58,10 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
   private readonly catalogs = new Map<string, AiandModelMetadata[]>();
   private readonly refreshedAt = new Map<string, number>();
   private readonly apiKeys = new Map<string, string>();
+  /** Keys that provider entries list with; the default group steps aside for these. */
+  private readonly entryKeys = new Set<string>();
+  /** Groups whose key ai& refused; they list nothing until a later fetch succeeds. */
+  private readonly rejectedKeys = new Set<string>();
   private readonly usage = new Map<string, AiandUsageSnapshot>();
   private activeCredentialRef = "legacy";
   private readonly metadata: ModelsDevMetadata;
@@ -82,6 +86,13 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
     for (const [key, usage] of Object.entries(state?.get<Record<string, AiandUsageSnapshot>>(USAGE_STATE_KEY) ?? {})) {
       if (usage && typeof usage === "object") this.usage.set(key, usage);
     }
+  }
+
+  /** The command-stored key was saved or removed, possibly in another window. */
+  handleLegacyKeyChanged(): void {
+    this.refreshedAt.delete("legacy");
+    this.rejectedKeys.delete("legacy");
+    this.changeEmitter.fire();
   }
 
   fireDidChange(): void {
@@ -121,22 +132,33 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
     token: vscode.CancellationToken,
   ): Promise<AiandModel[]> {
     const legacyApiKey = await this.auth.getApiKey();
-    const configuredApiKey = options.configuration ? apiKeyFromConfiguration(options.configuration) : undefined;
-    if (token.isCancellationRequested || (options.configuration && !configuredApiKey)) return [];
-    const apiKey = configuredApiKey ?? legacyApiKey;
-    const credentialRef = configuredApiKey ? credentialRefForApiKey(configuredApiKey, legacyApiKey) : "legacy";
+    const credential = resolveCredential(options.configuration, legacyApiKey, this.entryKeys);
+    if (token.isCancellationRequested || !credential) return [];
+    const { apiKey, credentialRef } = credential;
+    if (options.configuration && !this.entryKeys.has(apiKey)) {
+      this.entryKeys.add(apiKey);
+      // The default group may already list this key; ask VS Code again so it steps aside.
+      if (apiKey === legacyApiKey) this.changeEmitter.fire();
+    }
     this.activeCredentialRef = credentialRef;
-    if (apiKey) this.apiKeys.set(credentialRef, apiKey);
+    this.apiKeys.set(credentialRef, apiKey);
     const maxAge = Math.max(1, this.configuration.get("catalogCacheMinutes", 5)) * 60_000;
-    if (apiKey && Date.now() - (this.refreshedAt.get(credentialRef) ?? 0) > maxAge) {
+    if (Date.now() - (this.refreshedAt.get(credentialRef) ?? 0) > maxAge) {
       try {
         await this.refreshCatalog(credentialRef, apiKey, token);
       } catch (error) {
-        if (!token.isCancellationRequested) {
+        if (isRejectedKey(error)) {
+          // Retry after the cache window rather than on every query.
+          this.refreshedAt.set(credentialRef, Date.now());
+          this.warnRejectedKey(credentialRef, error);
+        } else if (!token.isCancellationRequested) {
           this.output.appendLine(`[models] discovery failed; using cached/fallback list: ${messageOf(error)}`);
         }
       }
     }
+
+    // Every request with a refused key would fail, so list nothing rather than a fallback catalog.
+    if (this.rejectedKeys.has(credentialRef)) return [];
 
     const workspaceDefault = this.configuration.get("reasoningEffort", DEFAULT_REASONING_EFFORT);
     return this.catalogFor(credentialRef).map((metadata) => {
@@ -159,12 +181,7 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
         name: metadata.name || formatModelName(metadata.id),
         family: modelFamily(metadata.id),
         version: metadata.version,
-        detail:
-          credentialRef === "legacy"
-            ? apiKey
-              ? "ai&"
-              : "ai& API key required"
-            : `ai& · ${credentialRef.slice(0, 8)}`,
+        detail: credentialRef === "legacy" ? "ai&" : `ai& · ${credentialRef.slice(0, 8)}`,
         tooltip: `${metadata.id} via ai& · ${formatTokenLimit(metadata.contextLength)} context · ${formatTokenLimit(
           metadata.maxOutputTokens,
         )} max output${metadata.imageInput ? " · image input" : " · text input"}${
@@ -173,9 +190,6 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
         ...limits,
         isUserSelectable: true,
         ...(credentialRef !== "legacy" ? { isBYOK: true } : {}),
-        ...(credentialRef === "legacy" && !apiKey
-          ? { requiresAuthorization: { label: "Configure ai& API key" } }
-          : {}),
         ...(pickerSpec || contextSizeOptions(limits.maxInputTokens)
           ? {
               configurationSchema: buildModelConfigurationSchema(
@@ -416,6 +430,7 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
   private setCatalog(credentialRef: string, models: readonly AiandModelMetadata[]): void {
     this.catalogs.set(credentialRef, [...models]);
     this.refreshedAt.set(credentialRef, Date.now());
+    this.rejectedKeys.delete(credentialRef);
     void this.state?.update(CATALOG_STATE_KEY, Object.fromEntries(this.catalogs));
   }
 
@@ -428,6 +443,17 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
     const models = await this.fetchModels(apiKey);
     this.setCatalog(credentialRef, models);
     return models;
+  }
+
+  private warnRejectedKey(credentialRef: string, error: unknown): void {
+    this.output.appendLine(`[models] ai& rejected the API key; listing no models: ${messageOf(error)}`);
+    if (this.rejectedKeys.has(credentialRef)) return;
+    this.rejectedKeys.add(credentialRef);
+    void vscode.window.showWarningMessage(
+      credentialRef === "legacy"
+        ? "ai& rejected the API key saved with ‘ai&: Configure API Key’. Run the command again with a valid key."
+        : `ai& rejected the API key of the ai& provider entry “ai& · ${credentialRef.slice(0, 8)}”. Update its key in Manage Language Models.`,
+    );
   }
 
   private requestHeaders(apiKey: string, accept: string): Record<string, string> {
