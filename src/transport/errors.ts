@@ -1,4 +1,19 @@
-export async function apiError(prefix: string, response: Response): Promise<Error> {
+export class AiandApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message);
+    this.name = "AiandApiError";
+  }
+}
+
+/** ai& refused the key itself, as opposed to a network or server failure. */
+export function isRejectedKey(error: unknown): boolean {
+  return error instanceof AiandApiError && (error.status === 401 || error.status === 403);
+}
+
+export async function apiError(prefix: string, response: Response): Promise<AiandApiError> {
   const text = (await response.text().catch(() => "")).trim();
   let detail = text;
   try {
@@ -15,5 +30,8 @@ export async function apiError(prefix: string, response: Response): Promise<Erro
   } catch {
     /* Use the response text as-is. */
   }
-  return new Error(`${prefix} (HTTP ${response.status})${detail ? `: ${detail.slice(0, 1000)}` : ""}`);
+  return new AiandApiError(
+    `${prefix} (HTTP ${response.status})${detail ? `: ${detail.slice(0, 1000)}` : ""}`,
+    response.status,
+  );
 }

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { registerInlineCompletions } from "./autocomplete";
-import { AiandAuth } from "./auth/auth";
+import { AiandAuth, API_KEY_SECRET } from "./auth/auth";
 import { registerCommands } from "./commands/commands";
 import { messageOf } from "./errors";
 import { AiandProvider } from "./provider";
@@ -36,6 +36,10 @@ export function activate(context: vscode.ExtensionContext): void {
     }),
     provider.onDidChangeUsage(({ credentialRef, usage }) => {
       if (credentialRef === provider.getActiveCredentialRef()) renderUsageStatus(usageStatus, usage);
+    }),
+    // The default group lists only with a saved key, so a key saved or removed in another window must refresh it.
+    context.secrets.onDidChange((event) => {
+      if (event.key === API_KEY_SECRET) provider.handleLegacyKeyChanged();
     }),
     vscode.lm.registerLanguageModelChatProvider("aiand", provider),
     ...registerCommands(auth, provider, output),

@@ -15,20 +15,27 @@ test("keeps legacy and native provider-entry model IDs distinct", () => {
   assert.equal(qualifiedModelId(reference, "glm-5.2"), `${reference}::glm-5.2`);
 });
 
+const NONE: ReadonlySet<string> = new Set();
+
 test("lists the default group only once the legacy command has stored a key", () => {
-  assert.equal(resolveCredential(undefined, undefined), undefined);
-  assert.deepEqual(resolveCredential(undefined, "legacy-key"), { apiKey: "legacy-key", credentialRef: "legacy" });
+  assert.equal(resolveCredential(undefined, undefined, NONE), undefined);
+  assert.deepEqual(resolveCredential(undefined, "legacy-key", NONE), { apiKey: "legacy-key", credentialRef: "legacy" });
 });
 
 test("a provider entry lists models only with its own key", () => {
-  assert.equal(resolveCredential({}, "legacy-key"), undefined);
-  assert.equal(resolveCredential({ apiKey: " " }, undefined), undefined);
-  const entry = resolveCredential({ apiKey: "entry-key" }, "legacy-key");
+  assert.equal(resolveCredential({}, "legacy-key", NONE), undefined);
+  assert.equal(resolveCredential({ apiKey: " " }, undefined, NONE), undefined);
+  const entry = resolveCredential({ apiKey: "entry-key" }, "legacy-key", NONE);
   assert.equal(entry?.apiKey, "entry-key");
   assert.match(entry?.credentialRef ?? "", /^key-[a-f0-9]{16}$/);
 });
 
-test("an entry holding the command-stored key is left to the default group", () => {
-  assert.equal(resolveCredential({ apiKey: "legacy-key" }, "legacy-key"), undefined);
-  assert.equal(resolveCredential({ apiKey: " legacy-key " }, "legacy-key"), undefined);
+test("an entry with the command-stored key keeps its own models; the default group yields", () => {
+  const entry = resolveCredential({ apiKey: " legacy-key " }, "legacy-key", NONE);
+  assert.deepEqual(entry, { apiKey: "legacy-key", credentialRef: credentialRefForApiKey("legacy-key") });
+  assert.equal(resolveCredential(undefined, "legacy-key", new Set(["legacy-key"])), undefined);
+  assert.deepEqual(resolveCredential(undefined, "legacy-key", new Set(["other-key"])), {
+    apiKey: "legacy-key",
+    credentialRef: "legacy",
+  });
 });

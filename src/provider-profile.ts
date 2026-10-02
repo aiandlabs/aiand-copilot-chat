@@ -11,18 +11,20 @@ export function credentialRefForApiKey(apiKey: string): string {
   return `key-${credentialReference(apiKey)}`;
 }
 
-/** Each key lists its models in exactly one group, so the picker never shows a model twice. */
+/**
+ * The key a model group lists with. A provider entry always lists with its own key;
+ * the default group lists only with a command-stored key that no entry already uses.
+ */
 export function resolveCredential(
   configuration: Readonly<Record<string, unknown>> | undefined,
   legacyApiKey: string | undefined,
+  entryKeys: ReadonlySet<string>,
 ): { apiKey: string; credentialRef: string } | undefined {
   if (configuration) {
     const apiKey = apiKeyFromConfiguration(configuration);
-    // An entry holding the command-stored key would repeat the default group's list.
-    if (!apiKey || apiKey === legacyApiKey) return undefined;
-    return { apiKey, credentialRef: credentialRefForApiKey(apiKey) };
+    return apiKey ? { apiKey, credentialRef: credentialRefForApiKey(apiKey) } : undefined;
   }
-  return legacyApiKey ? { apiKey: legacyApiKey, credentialRef: "legacy" } : undefined;
+  return legacyApiKey && !entryKeys.has(legacyApiKey) ? { apiKey: legacyApiKey, credentialRef: "legacy" } : undefined;
 }
 
 export function qualifiedModelId(credentialRef: string, modelId: string): string {
