@@ -29,7 +29,7 @@ This extension is a native VS Code `LanguageModelChatProvider`. It validates a u
 
 ## Quick start
 
-1. Install the extension. You need VS Code 1.125 or newer and GitHub Copilot Chat.
+1. [Install the extension from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=aiand.aiand-copilot). You need VS Code 1.125 or newer and GitHub Copilot Chat.
 2. Create an API key in the [ai& dashboard](https://console.aiand.com/settings/api-keys).
 3. Open Copilot Chat, select **Manage Models**, add a **ai&** provider entry, and enter the key.
 4. Choose any model returned by your ai& account.
