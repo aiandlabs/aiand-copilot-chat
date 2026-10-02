@@ -8,6 +8,13 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ## [Unreleased]
 
+### Fixed
+
+- Each ai& model is listed once. The built-in **ai&** group no longer shows
+  a keyless copy of the catalog next to the provider entry you added in
+  Manage Models; it lists models only after **ai&: Configure API Key** has
+  stored a key.
+
 ## [1.0.0] - 2026-10-01
 
 ### Changed

@@ -31,7 +31,7 @@ import { ChatCompletionStreamParser, validateStreamCompletion } from "./transpor
 import { AIAND_ENDPOINTS, aiandHeaders } from "./transport/protocol";
 import { apiError } from "./transport/errors";
 import { mergeAccountUsage, recordRequestUsage, type AiandUsageSnapshot } from "./usage/domain";
-import { apiKeyFromConfiguration, credentialRefForApiKey, qualifiedModelId } from "./provider-profile";
+import { qualifiedModelId, resolveCredential } from "./provider-profile";
 import { isTransientNetworkError, isTransientServerError, retryDelayMs } from "./provider/retry";
 import { messageToText } from "./provider/messages";
 import { buildRequest } from "./provider/request";
@@ -120,15 +120,13 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
     options: vscode.PrepareLanguageModelChatModelOptions,
     token: vscode.CancellationToken,
   ): Promise<AiandModel[]> {
-    const legacyApiKey = await this.auth.getApiKey();
-    const configuredApiKey = options.configuration ? apiKeyFromConfiguration(options.configuration) : undefined;
-    if (token.isCancellationRequested || (options.configuration && !configuredApiKey)) return [];
-    const apiKey = configuredApiKey ?? legacyApiKey;
-    const credentialRef = configuredApiKey ? credentialRefForApiKey(configuredApiKey, legacyApiKey) : "legacy";
+    const credential = resolveCredential(options.configuration, await this.auth.getApiKey());
+    if (token.isCancellationRequested || !credential) return [];
+    const { apiKey, credentialRef } = credential;
     this.activeCredentialRef = credentialRef;
-    if (apiKey) this.apiKeys.set(credentialRef, apiKey);
+    this.apiKeys.set(credentialRef, apiKey);
     const maxAge = Math.max(1, this.configuration.get("catalogCacheMinutes", 5)) * 60_000;
-    if (apiKey && Date.now() - (this.refreshedAt.get(credentialRef) ?? 0) > maxAge) {
+    if (Date.now() - (this.refreshedAt.get(credentialRef) ?? 0) > maxAge) {
       try {
         await this.refreshCatalog(credentialRef, apiKey, token);
       } catch (error) {
@@ -159,12 +157,7 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
         name: metadata.name || formatModelName(metadata.id),
         family: modelFamily(metadata.id),
         version: metadata.version,
-        detail:
-          credentialRef === "legacy"
-            ? apiKey
-              ? "ai&"
-              : "ai& API key required"
-            : `ai& · ${credentialRef.slice(0, 8)}`,
+        detail: credentialRef === "legacy" ? "ai&" : `ai& · ${credentialRef.slice(0, 8)}`,
         tooltip: `${metadata.id} via ai& · ${formatTokenLimit(metadata.contextLength)} context · ${formatTokenLimit(
           metadata.maxOutputTokens,
         )} max output${metadata.imageInput ? " · image input" : " · text input"}${
@@ -173,9 +166,6 @@ export class AiandProvider implements vscode.LanguageModelChatProvider<AiandMode
         ...limits,
         isUserSelectable: true,
         ...(credentialRef !== "legacy" ? { isBYOK: true } : {}),
-        ...(credentialRef === "legacy" && !apiKey
-          ? { requiresAuthorization: { label: "Configure ai& API key" } }
-          : {}),
         ...(pickerSpec || contextSizeOptions(limits.maxInputTokens)
           ? {
               configurationSchema: buildModelConfigurationSchema(
