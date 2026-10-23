@@ -5,6 +5,7 @@
 - These instructions apply to the entire repository.
 - This is a TypeScript VS Code `LanguageModelChatProvider`. Use Node.js 22+ and npm; `package-lock.json` is authoritative.
 - Install from a clean checkout with `npm ci`.
+- A release must be 7 days old before we take it: `min-release-age` in `.npmrc` (npm 11.10+, which `devEngines` warns about) and Dependabot's `cooldown` say the same.
 
 ## Code map
 
