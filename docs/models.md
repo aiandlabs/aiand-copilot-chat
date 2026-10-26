@@ -39,7 +39,7 @@ Effort picker lists exactly the efforts a model accepts (the live
 `reasoning_efforts` field), and sends only a value from that list. The
 selection falls back to the model's own default when the workspace default is
 not supported — for example, `aiandCopilot.reasoningEffort: "high"` applies to
-Qwen 3.6 27B but resolves to DeepSeek V4 Flash's own default (`none`) because
+Qwen 3.6 27B but resolves to Qwen 3.8 27B's own default (`medium`) because
 that model does not accept `high`.
 
 Each model's picker default prefers the workspace setting when the model
