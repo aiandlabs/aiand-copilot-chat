@@ -3,7 +3,8 @@
  *
  * Badges carry measured inline-completion latency against api.aiand.com
  * (median time-to-first-byte over a realistic fill-in-the-middle prompt with
- * each model's reasoning-off effort, 2026-09-10). The QuickPick command
+ * each model's reasoning-off effort, 2026-09-10; DeepSeek V4.1 Flash on
+ * 2026-10-26). The QuickPick command
  * renders this list and writes the selected id to
  * `aiandCopilot.inlineSuggestionsModel`, so choices need no reload. Unknown
  * model ids stay reachable through the command's custom entry and the raw
@@ -23,8 +24,8 @@ export interface InlineModelCandidate {
 export const INLINE_MODEL_CANDIDATES: readonly InlineModelCandidate[] = [
   {
     id: "deepseek-ai/deepseek-v4.1-flash",
-    badge: "★ default · flash tier",
-    detail: "Successor of DeepSeek V4 Flash (retired 2026-10-27); runs at reasoning_effort none.",
+    badge: "★ default · measured ~0.3s TTFB · ~0.3s total",
+    detail: "Fastest full completion; successor of DeepSeek V4 Flash (retired 2026-10-27).",
   },
   {
     id: "google/gemma-4-31b-it",

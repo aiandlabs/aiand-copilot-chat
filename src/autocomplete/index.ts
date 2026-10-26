@@ -17,7 +17,6 @@ import {
   CONFIG_SECTION,
   DEFAULT_INLINE_DEBOUNCE_MS,
   DEFAULT_INLINE_MAX_TOKENS,
-  DEFAULT_INLINE_MODEL,
   DEFAULT_INLINE_PREFIX_LINES,
   DEFAULT_INLINE_SUFFIX_CHARS,
   DEFAULT_INLINE_SUGGESTIONS_CHAT_INPUT,
@@ -27,6 +26,7 @@ import {
   INLINE_PREFIX_LINES_SETTING,
   INLINE_SUGGESTIONS_CHAT_INPUT_SETTING,
   INLINE_SUGGESTIONS_MODEL_SETTING,
+  inlineModelId,
   INLINE_SUGGESTIONS_SETTING,
   INLINE_SUFFIX_CHARS_SETTING,
   INLINE_TIMEOUT_MS_SETTING,
@@ -77,7 +77,7 @@ export function registerInlineCompletions(context: vscode.ExtensionContext, deps
   const provider = new AiandInlineCompletionProvider({
     engine,
     isEnabled: () => readSetting(INLINE_SUGGESTIONS_SETTING, false),
-    resolveModelId: () => readSetting(INLINE_SUGGESTIONS_MODEL_SETTING, DEFAULT_INLINE_MODEL),
+    resolveModelId: () => inlineModelId(readSetting<string | undefined>(INLINE_SUGGESTIONS_MODEL_SETTING, undefined)),
     resolveReasoningEfforts: (modelId) =>
       deps.resolveReasoningEfforts?.(modelId) ?? getModelMetadata(modelId).reasoningEfforts,
     resolveChatInputEnabled: () => readSetting(INLINE_SUGGESTIONS_CHAT_INPUT_SETTING, DEFAULT_INLINE_SUGGESTIONS_CHAT_INPUT),
