@@ -8,6 +8,8 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-26
+
 ### Changed
 
 - Inline suggestions now default to DeepSeek V4.1 Flash. ai& retires DeepSeek
