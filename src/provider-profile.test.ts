@@ -11,8 +11,8 @@ test("normalizes native provider-entry API keys without exposing them", () => {
 test("keeps legacy and native provider-entry model IDs distinct", () => {
   const reference = credentialRefForApiKey("entry-key");
   assert.match(reference, /^key-[a-f0-9]{16}$/);
-  assert.equal(qualifiedModelId("legacy", "glm-5.2"), "glm-5.2");
-  assert.equal(qualifiedModelId(reference, "glm-5.2"), `${reference}::glm-5.2`);
+  assert.equal(qualifiedModelId("legacy", "glm-5.3"), "glm-5.3");
+  assert.equal(qualifiedModelId(reference, "glm-5.3"), `${reference}::glm-5.3`);
 });
 
 const NONE: ReadonlySet<string> = new Set();

@@ -4,12 +4,10 @@ import type { ReasoningEffort } from "./options";
 
 export const FALLBACK_MODELS = [
   "openai/gpt-oss-120b",
-  "deepseek-ai/deepseek-v4-flash",
+  "deepseek-ai/deepseek-v4.1-flash",
   "deepseek-ai/deepseek-v4-pro",
   "moonshotai/kimi-k3",
-  "moonshotai/kimi-k2.7-code",
   "zai-org/glm-5.3",
-  "zai-org/glm-5.2",
   "google/gemma-4-31b-it",
   "qwen/qwen3.8-27b",
   "qwen/qwen3.6-27b",
@@ -30,12 +28,10 @@ const FALLBACK_REASONING_EFFORTS: Readonly<Record<string, {
   readonly defaultEffort: ReasoningEffort;
 }>> = {
   "openai/gpt-oss-120b": { efforts: ["low", "medium", "high"], defaultEffort: "medium" },
-  "deepseek-ai/deepseek-v4-flash": { efforts: ["none", "high", "max"], defaultEffort: "none" },
+  "deepseek-ai/deepseek-v4.1-flash": { efforts: ["none", "high", "max"], defaultEffort: "high" },
   "deepseek-ai/deepseek-v4-pro": { efforts: ["none", "high", "max"], defaultEffort: "none" },
   "moonshotai/kimi-k3": { efforts: ["low", "high", "max"], defaultEffort: "max" },
-  "moonshotai/kimi-k2.7-code": { efforts: ["high"], defaultEffort: "high" },
   "zai-org/glm-5.3": { efforts: ["low", "high", "max"], defaultEffort: "max" },
-  "zai-org/glm-5.2": { efforts: ["none", "high", "max"], defaultEffort: "max" },
   "google/gemma-4-31b-it": { efforts: ["none", "high"], defaultEffort: "none" },
   "qwen/qwen3.8-27b": { efforts: ["none", "low", "medium", "xhigh"], defaultEffort: "medium" },
   "qwen/qwen3.6-27b": { efforts: ["none", "high"], defaultEffort: "high" },
@@ -88,12 +84,10 @@ export interface AiandApiModel {
 
 const OFFICIAL_MODEL_NAMES: Readonly<Record<string, string>> = {
   "openai/gpt-oss-120b": "GPT OSS 120B",
-  "deepseek-ai/deepseek-v4-flash": "DeepSeek V4 Flash",
+  "deepseek-ai/deepseek-v4.1-flash": "DeepSeek V4.1 Flash",
   "deepseek-ai/deepseek-v4-pro": "DeepSeek V4 Pro",
   "moonshotai/kimi-k3": "Kimi K3",
-  "moonshotai/kimi-k2.7-code": "Kimi K2.7 Code",
   "zai-org/glm-5.3": "GLM 5.3",
-  "zai-org/glm-5.2": "GLM 5.2",
   "google/gemma-4-31b-it": "Gemma 4 31B IT",
   "qwen/qwen3.8-27b": "Qwen 3.8 27B",
   "qwen/qwen3.6-27b": "Qwen 3.6 27B",
@@ -112,12 +106,10 @@ const VENDOR_LABELS: Readonly<Record<string, string>> = {
 
 export const FALLBACK_MODEL_METADATA: readonly AiandModelMetadata[] = [
   model("openai/gpt-oss-120b", 131_072, 131_072),
-  model("deepseek-ai/deepseek-v4-flash", 1_048_576, 131_072),
+  model("deepseek-ai/deepseek-v4.1-flash", 1_048_576, 384_000, true),
   model("deepseek-ai/deepseek-v4-pro", 1_048_576, 131_072),
   model("moonshotai/kimi-k3", 1_048_576, 262_144, true),
-  model("moonshotai/kimi-k2.7-code", 262_144, 262_144, true),
   model("zai-org/glm-5.3", 1_048_576, 131_072),
-  model("zai-org/glm-5.2", 1_048_576, 131_072),
   model("google/gemma-4-31b-it", 262_144, 262_144, true),
   model("qwen/qwen3.8-27b", 262_144, 262_144, true),
   model("qwen/qwen3.6-27b", 262_144, 262_144, true),

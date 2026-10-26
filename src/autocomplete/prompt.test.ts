@@ -17,7 +17,7 @@ test("sends the measured reasoning-off switch when the model accepts it", () => 
 });
 
 test("picks the lightest listed effort when the model has no off switch", () => {
-  // kimi-k2.7-code only accepts "high".
+  // A model that accepts only "high".
   assert.equal(completionReasoningEffort(["high"]), "high");
   assert.deepEqual(buildCompletionPrompt("a", "b", ["high"]).extra, { reasoning_effort: "high" });
   // gpt-oss-120b accepts low/medium/high → lightest is low.

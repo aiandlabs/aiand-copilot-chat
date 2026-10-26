@@ -15,7 +15,7 @@ import {
 
 test("accepts ai& chat model IDs and excludes non-chat families", () => {
   assert.equal(isAiandChatModel("deepseek-ai/deepseek-v4-pro"), true);
-  assert.equal(isAiandChatModel("moonshotai/kimi-k2.7-code"), true);
+  assert.equal(isAiandChatModel("moonshotai/kimi-k3"), true);
   assert.equal(isAiandChatModel("multilingual-e5-large-instruct"), true);
   assert.equal(isAiandChatModel("text-embedding-3-large"), false);
   assert.equal(isAiandChatModel("image/generator"), false);
@@ -23,10 +23,10 @@ test("accepts ai& chat model IDs and excludes non-chat families", () => {
 
 test("orders documented fallback models before other discovered models", () => {
   assert.deepEqual(
-    orderModels(["future-chat", "zai-org/glm-5.2", "OPENAI/GPT-OSS-120B", "openai/gpt-oss-120b"]),
+    orderModels(["future-chat", "zai-org/glm-5.3", "OPENAI/GPT-OSS-120B", "openai/gpt-oss-120b"]),
     [
       FALLBACK_MODELS[0],
-      FALLBACK_MODELS[6],
+      FALLBACK_MODELS[4],
       "future-chat",
     ],
   );
@@ -34,31 +34,42 @@ test("orders documented fallback models before other discovered models", () => {
 
 test("formats model IDs for the VS Code picker", () => {
   assert.equal(formatModelName("deepseek-ai/deepseek-v4-pro"), "DeepSeek V4 Pro");
-  assert.equal(formatModelName("zai-org/glm-5.2"), "GLM 5.2");
+  assert.equal(formatModelName("zai-org/glm-5.3"), "GLM 5.3");
   assert.equal(formatModelName("openai/gpt-oss-120b"), "GPT OSS 120B");
   assert.equal(formatModelName("qwen/qwen3.8-27b"), "Qwen 3.8 27B");
 });
 
 test("provides documented fallback limits", () => {
   for (const id of [
-    "deepseek-ai/deepseek-v4-flash",
+    "deepseek-ai/deepseek-v4.1-flash",
     "deepseek-ai/deepseek-v4-pro",
     "moonshotai/kimi-k3",
     "zai-org/glm-5.3",
-    "zai-org/glm-5.2",
   ]) {
     assert.equal(getModelMetadata(id).contextLength, 1_048_576);
   }
   assert.equal(getModelMetadata("moonshotai/kimi-k3").imageInput, true);
-  assert.deepEqual(getModelMetadata("zai-org/glm-5.2"), {
-    id: "zai-org/glm-5.2",
-    name: "GLM 5.2",
+  assert.deepEqual(getModelMetadata("deepseek-ai/deepseek-v4.1-flash"), {
+    id: "deepseek-ai/deepseek-v4.1-flash",
+    name: "DeepSeek V4.1 Flash",
+    version: "unknown",
+    contextLength: 1_048_576,
+    maxOutputTokens: 384_000,
+    imageInput: true,
+    toolCalling: true,
+    reasoningEfforts: ["none", "high", "max"],
+    defaultReasoningEffort: "high",
+    cost: { input: 0.3, cacheRead: 0.02, output: 0.6 },
+  });
+  assert.deepEqual(getModelMetadata("zai-org/glm-5.3"), {
+    id: "zai-org/glm-5.3",
+    name: "GLM 5.3",
     version: "unknown",
     contextLength: 1_048_576,
     maxOutputTokens: 131_072,
     imageInput: false,
     toolCalling: true,
-    reasoningEfforts: ["none", "high", "max"],
+    reasoningEfforts: ["low", "high", "max"],
     defaultReasoningEffort: "max",
     cost: { input: 1, cacheRead: 0.3, output: 4 },
   });
@@ -109,23 +120,23 @@ test("uses exactly the discovered catalog and advertised metadata", () => {
 test("reads live reasoning_efforts and reasoning_effort_default verbatim", () => {
   const [live] = orderModelMetadata([
     {
-      id: "zai-org/glm-5.2",
+      id: "deepseek-ai/deepseek-v4.1-flash",
       tool_calling: false,
       reasoning_efforts: ["none", "high", "max"],
-      reasoning_effort_default: "max",
+      reasoning_effort_default: "high",
       created: 1_700_000_000,
     },
   ]);
   assert.equal(live.toolCalling, false);
   assert.deepEqual(live.reasoningEfforts, ["none", "high", "max"]);
-  assert.equal(live.defaultReasoningEffort, "max");
+  assert.equal(live.defaultReasoningEffort, "high");
   assert.equal(live.releaseDate, "2023-11-14");
 });
 
 test("falls back to per-model reasoning efforts when the live catalog omits them", () => {
   assert.deepEqual(getModelMetadata("google/gemma-4-31b-it").reasoningEfforts, ["none", "high"]);
-  assert.deepEqual(getModelMetadata("moonshotai/kimi-k2.7-code").reasoningEfforts, ["high"]);
-  assert.equal(getModelMetadata("moonshotai/kimi-k2.7-code").defaultReasoningEffort, "high");
+  assert.deepEqual(getModelMetadata("moonshotai/kimi-k3").reasoningEfforts, ["low", "high", "max"]);
+  assert.equal(getModelMetadata("moonshotai/kimi-k3").defaultReasoningEffort, "max");
   assert.equal(getModelMetadata("some-unknown-model").reasoningEfforts, undefined);
 });
 
@@ -186,7 +197,7 @@ test("prefers live model pricing and falls back to ai&'s official table", () => 
   ]);
   assert.deepEqual(live.cost, { input: 1, cacheRead: 0.2, output: 2 });
 
-  const [fallback] = orderModelMetadata([{ id: "zai-org/glm-5.2" }]);
+  const [fallback] = orderModelMetadata([{ id: "zai-org/glm-5.3" }]);
   assert.deepEqual(fallback.cost, {
     input: 1,
     cacheRead: 0.3,

@@ -4,9 +4,6 @@
  * ai& exposes no FIM endpoint, so fill-in-the-middle is emulated with FIM
  * delimiter tokens inline over the fixed `/chat/completions` endpoint, and
  * reasoning is disabled with the accepted `reasoning_effort: "none"` value.
- * Inline latency has not been benchmarked against ai& yet; the default
- * flash-tier model is chosen for its low cost and latency class, not from
- * live measurements.
  *
  * Pure and unit-tested.
  */

@@ -42,7 +42,7 @@ Provider-entry discovery uses `https://api.aiand.com/v1/models`. Models added to
 | `aiandCopilot.showUsageStatusBar` | `true` | Show the live credit balance and locally tracked token activity for the active ai& entry |
 | `aiandCopilot.debugLogging` | `false` | Log request, stream, usage, and discovery metadata |
 | `aiandCopilot.inlineSuggestions` | `false` | Experimental ghost-text inline completions while typing |
-| `aiandCopilot.inlineSuggestionsModel` | `deepseek-ai/deepseek-v4-flash` | Model used for inline completions at `reasoning_effort: none` |
+| `aiandCopilot.inlineSuggestionsModel` | `deepseek-ai/deepseek-v4.1-flash` | Model used for inline completions at `reasoning_effort: none` |
 | `aiandCopilot.inlineSuggestionsChatInput` | `false` | Also offer suggestions inside the Copilot Chat prompt box |
 | `aiandCopilot.inlineSuggestionsDebounceMs` | `300` | Debounce between typing and a completion request |
 | `aiandCopilot.inlineSuggestionsTimeoutMs` | `3000` | Per-request completion timeout |
@@ -56,7 +56,7 @@ Prompts and API keys are never intentionally written to the output channel.
 
 Inline code suggestions are experimental and off by default. When enabled, each suggestion sends a bounded fill-in-the-middle prompt (10 lines before the cursor, 300 characters after, both configurable) with FIM delimiter tokens and the suggestion model's reasoning-off effort (`reasoning_effort: "none"` when the model accepts it, else its lightest listed effort) to the fixed `/chat/completions` endpoint. Hidden reasoning deltas are discarded engine-side, and the Copilot Chat prompt box is excluded unless `aiandCopilot.inlineSuggestionsChatInput` is enabled.
 
-Candidate latency is measured against api.aiand.com (median time-to-first-byte over a realistic fill-in-the-middle prompt at each model's reasoning-off effort): Gemma 4 31B IT and the compact Qwen models reach a first token in ~0.5s, DeepSeek V4 Flash completes fastest overall (~0.5s TTFB, ~0.8s total), and larger models run ~0.7–1.0s. Kimi K2.7 Code only accepts high effort, so it reasons before emitting and ghost text may stay empty. The candidates default to the low-latency flash tier first, larger models later.
+Candidate latency is measured against api.aiand.com (median time-to-first-byte over a realistic fill-in-the-middle prompt at each model's reasoning-off effort): Gemma 4 31B IT and the compact Qwen models reach a first token in ~0.5s, GLM 5.3 in ~0.6s, and larger models run ~0.7–0.9s. DeepSeek V4.1 Flash, the default, measured ~0.3s TTFB and ~0.3s total on 2026-10-26. The candidates default to the low-latency flash tier first, larger models later.
 
 **ai&: Set Inline Suggestions Model** (also in the Manage menu) lists compatible models ordered default-first with measured badges. A "Use a custom model id…" entry keeps any hosted model reachable. The command only writes settings, so changes apply on the next keystroke without a reload.
 
