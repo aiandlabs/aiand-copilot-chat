@@ -97,7 +97,7 @@
         },
         "aiandCopilot.inlineSuggestionsModel": {
           "type": "string",
-          "default": "deepseek-ai/deepseek-v4-flash",
+          "default": "deepseek-ai/deepseek-v4.1-flash",
           "description": "Model id used for inline completions. Defaults to the low-latency flash tier."
         },
         "aiandCopilot.inlineSuggestionsChatInput": {

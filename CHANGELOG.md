@@ -8,6 +8,14 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ## [Unreleased]
 
+### Changed
+
+- Inline suggestions now default to DeepSeek V4.1 Flash. ai& retires DeepSeek
+  V4 Flash, Kimi K2.7 Code and GLM 5.2 on 2026-10-27 0:00 JST, and they leave
+  the fallback catalog and the inline model picker. If you set
+  `aiandCopilot.inlineSuggestionsModel` to one of them yourself, pick another
+  model.
+
 ## [1.0.1] - 2026-10-02
 
 ### Fixed

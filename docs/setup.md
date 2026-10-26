@@ -42,7 +42,7 @@ Provider-entry discovery uses `https://api.aiand.com/v1/models`. Models added to
 | `aiandCopilot.showUsageStatusBar` | `true` | Show the live credit balance and locally tracked token activity for the active ai& entry |
 | `aiandCopilot.debugLogging` | `false` | Log request, stream, usage, and discovery metadata |
 | `aiandCopilot.inlineSuggestions` | `false` | Experimental ghost-text inline completions while typing |
-| `aiandCopilot.inlineSuggestionsModel` | `deepseek-ai/deepseek-v4-flash` | Model used for inline completions at `reasoning_effort: none` |
+| `aiandCopilot.inlineSuggestionsModel` | `deepseek-ai/deepseek-v4.1-flash` | Model used for inline completions at `reasoning_effort: none` |
 | `aiandCopilot.inlineSuggestionsChatInput` | `false` | Also offer suggestions inside the Copilot Chat prompt box |
 | `aiandCopilot.inlineSuggestionsDebounceMs` | `300` | Debounce between typing and a completion request |
 | `aiandCopilot.inlineSuggestionsTimeoutMs` | `3000` | Per-request completion timeout |

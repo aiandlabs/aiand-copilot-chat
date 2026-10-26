@@ -22,9 +22,9 @@ export interface InlineModelCandidate {
 
 export const INLINE_MODEL_CANDIDATES: readonly InlineModelCandidate[] = [
   {
-    id: "deepseek-ai/deepseek-v4-flash",
-    badge: "★ default · measured ~0.5s TTFB · ~0.8s total",
-    detail: "Fastest full completion; a sensible default for ghost text.",
+    id: "deepseek-ai/deepseek-v4.1-flash",
+    badge: "★ default · flash tier",
+    detail: "Successor of DeepSeek V4 Flash (retired 2026-10-27); runs at reasoning_effort none.",
   },
   {
     id: "google/gemma-4-31b-it",
@@ -65,16 +65,6 @@ export const INLINE_MODEL_CANDIDATES: readonly InlineModelCandidate[] = [
     id: "moonshotai/kimi-k3",
     badge: "measured ~0.9s TTFB · larger",
     detail: "Large Kimi model; prefer smaller tiers for inline latency.",
-  },
-  {
-    id: "zai-org/glm-5.2",
-    badge: "measured ~1.0s TTFB",
-    detail: "GLM model; slower first token than the flash tiers.",
-  },
-  {
-    id: "moonshotai/kimi-k2.7-code",
-    badge: "code-tuned · always reasons",
-    detail: "Only accepts high effort; reasons before emitting, so ghost text is delayed and may stay empty.",
   },
 ];
 
