@@ -49,6 +49,18 @@ test("provides documented fallback limits", () => {
     assert.equal(getModelMetadata(id).contextLength, 1_048_576);
   }
   assert.equal(getModelMetadata("moonshotai/kimi-k3").imageInput, true);
+  assert.deepEqual(getModelMetadata("deepseek-ai/deepseek-v4.1-flash"), {
+    id: "deepseek-ai/deepseek-v4.1-flash",
+    name: "DeepSeek V4.1 Flash",
+    version: "unknown",
+    contextLength: 1_048_576,
+    maxOutputTokens: 384_000,
+    imageInput: true,
+    toolCalling: true,
+    reasoningEfforts: ["none", "high", "max"],
+    defaultReasoningEffort: "high",
+    cost: { input: 0.3, cacheRead: 0.02, output: 0.6 },
+  });
   assert.deepEqual(getModelMetadata("zai-org/glm-5.3"), {
     id: "zai-org/glm-5.3",
     name: "GLM 5.3",
@@ -108,16 +120,16 @@ test("uses exactly the discovered catalog and advertised metadata", () => {
 test("reads live reasoning_efforts and reasoning_effort_default verbatim", () => {
   const [live] = orderModelMetadata([
     {
-      id: "zai-org/glm-5.2",
+      id: "deepseek-ai/deepseek-v4.1-flash",
       tool_calling: false,
       reasoning_efforts: ["none", "high", "max"],
-      reasoning_effort_default: "max",
+      reasoning_effort_default: "high",
       created: 1_700_000_000,
     },
   ]);
   assert.equal(live.toolCalling, false);
   assert.deepEqual(live.reasoningEfforts, ["none", "high", "max"]);
-  assert.equal(live.defaultReasoningEffort, "max");
+  assert.equal(live.defaultReasoningEffort, "high");
   assert.equal(live.releaseDate, "2023-11-14");
 });
 
