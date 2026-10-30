@@ -39,7 +39,7 @@ test("streams a completion and sends the reasoning-off payload", async () => {
     {
       prefix: "p",
       suffix: "s",
-      modelId: "deepseek-ai/deepseek-v4.1-flash",
+      modelId: "deepseek-ai/deepseek-v4.1-flash-1017",
       maxTokens: 128,
       reasoningEfforts: ["none", "high", "max"],
     },
@@ -55,7 +55,7 @@ test("streams a completion and sends the reasoning-off payload", async () => {
     messages: Array<{ role: string; content: string }>;
   };
   assert.equal(requests[0]?.url, "https://api.aiand.com/v1/chat/completions");
-  assert.equal(body.model, "deepseek-ai/deepseek-v4.1-flash");
+  assert.equal(body.model, "deepseek-ai/deepseek-v4.1-flash-1017");
   assert.equal(body.reasoning_effort, "none");
   assert.equal(body.stream, true);
   assert.equal(body.max_tokens, 128);
@@ -73,7 +73,7 @@ test("never echoes upstream error bodies", async () => {
     fetcher: async () => new Response('{"error":"prompt context leak"}', { status: 401 }),
   });
   await assert.rejects(
-    engine.complete({ prefix: "p", suffix: "s", modelId: "deepseek-ai/deepseek-v4.1-flash", maxTokens: 8 }, new AbortController().signal),
+    engine.complete({ prefix: "p", suffix: "s", modelId: "deepseek-ai/deepseek-v4.1-flash-1017", maxTokens: 8 }, new AbortController().signal),
     (error: unknown) => error instanceof Error && error.message === "ai& completion request failed (401)",
   );
 });
@@ -91,7 +91,7 @@ test("aborted caller signal surfaces as a quiet no-result", async () => {
     },
   });
   const result = await engine.complete(
-    { prefix: "p", suffix: "s", modelId: "deepseek-ai/deepseek-v4.1-flash", maxTokens: 8 },
+    { prefix: "p", suffix: "s", modelId: "deepseek-ai/deepseek-v4.1-flash-1017", maxTokens: 8 },
     controller.signal,
   );
   assert.equal(result.text, undefined);
@@ -115,7 +115,7 @@ test("times out long requests via the request timeout", async () => {
     }) as typeof fetch,
   });
   await assert.rejects(
-    engine.complete({ prefix: "p", suffix: "s", modelId: "deepseek-ai/deepseek-v4.1-flash", maxTokens: 8 }, new AbortController().signal),
+    engine.complete({ prefix: "p", suffix: "s", modelId: "deepseek-ai/deepseek-v4.1-flash-1017", maxTokens: 8 }, new AbortController().signal),
     /failed/,
   );
 });

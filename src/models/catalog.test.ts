@@ -41,7 +41,7 @@ test("formats model IDs for the VS Code picker", () => {
 
 test("provides documented fallback limits", () => {
   for (const id of [
-    "deepseek-ai/deepseek-v4.1-flash",
+    "deepseek-ai/deepseek-v4.1-flash-1017",
     "deepseek-ai/deepseek-v4-pro",
     "moonshotai/kimi-k3",
     "zai-org/glm-5.3",
@@ -49,9 +49,9 @@ test("provides documented fallback limits", () => {
     assert.equal(getModelMetadata(id).contextLength, 1_048_576);
   }
   assert.equal(getModelMetadata("moonshotai/kimi-k3").imageInput, true);
-  assert.deepEqual(getModelMetadata("deepseek-ai/deepseek-v4.1-flash"), {
-    id: "deepseek-ai/deepseek-v4.1-flash",
-    name: "DeepSeek V4.1 Flash",
+  assert.deepEqual(getModelMetadata("deepseek-ai/deepseek-v4.1-flash-1017"), {
+    id: "deepseek-ai/deepseek-v4.1-flash-1017",
+    name: "DeepSeek V4.1 Flash 1017",
     version: "unknown",
     contextLength: 1_048_576,
     maxOutputTokens: 384_000,
@@ -120,7 +120,7 @@ test("uses exactly the discovered catalog and advertised metadata", () => {
 test("reads live reasoning_efforts and reasoning_effort_default verbatim", () => {
   const [live] = orderModelMetadata([
     {
-      id: "deepseek-ai/deepseek-v4.1-flash",
+      id: "deepseek-ai/deepseek-v4.1-flash-1017",
       tool_calling: false,
       reasoning_efforts: ["none", "high", "max"],
       reasoning_effort_default: "high",

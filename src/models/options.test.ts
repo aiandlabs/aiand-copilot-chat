@@ -73,12 +73,12 @@ test("models without reasoning control resolve no effort and omit the parameter"
 });
 
 test("sends ai&'s documented reasoning_effort parameter", () => {
-  assert.deepEqual(applyReasoningEffort({ model: "deepseek-ai/deepseek-v4.1-flash" }, "none"), {
-    model: "deepseek-ai/deepseek-v4.1-flash",
+  assert.deepEqual(applyReasoningEffort({ model: "deepseek-ai/deepseek-v4.1-flash-1017" }, "none"), {
+    model: "deepseek-ai/deepseek-v4.1-flash-1017",
     reasoning_effort: "none",
   });
-  assert.deepEqual(applyReasoningEffort({ model: "deepseek-ai/deepseek-v4.1-flash" }, "max"), {
-    model: "deepseek-ai/deepseek-v4.1-flash",
+  assert.deepEqual(applyReasoningEffort({ model: "deepseek-ai/deepseek-v4.1-flash-1017" }, "max"), {
+    model: "deepseek-ai/deepseek-v4.1-flash-1017",
     reasoning_effort: "max",
   });
 });

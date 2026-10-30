@@ -4,7 +4,7 @@ import type { ReasoningEffort } from "./options";
 
 export const FALLBACK_MODELS = [
   "openai/gpt-oss-120b",
-  "deepseek-ai/deepseek-v4.1-flash",
+  "deepseek-ai/deepseek-v4.1-flash-1017",
   "deepseek-ai/deepseek-v4-pro",
   "moonshotai/kimi-k3",
   "zai-org/glm-5.3",
@@ -28,7 +28,7 @@ const FALLBACK_REASONING_EFFORTS: Readonly<Record<string, {
   readonly defaultEffort: ReasoningEffort;
 }>> = {
   "openai/gpt-oss-120b": { efforts: ["low", "medium", "high"], defaultEffort: "medium" },
-  "deepseek-ai/deepseek-v4.1-flash": { efforts: ["none", "high", "max"], defaultEffort: "high" },
+  "deepseek-ai/deepseek-v4.1-flash-1017": { efforts: ["none", "high", "max"], defaultEffort: "high" },
   "deepseek-ai/deepseek-v4-pro": { efforts: ["none", "high", "max"], defaultEffort: "none" },
   "moonshotai/kimi-k3": { efforts: ["low", "high", "max"], defaultEffort: "max" },
   "zai-org/glm-5.3": { efforts: ["low", "high", "max"], defaultEffort: "max" },
@@ -84,7 +84,7 @@ export interface AiandApiModel {
 
 const OFFICIAL_MODEL_NAMES: Readonly<Record<string, string>> = {
   "openai/gpt-oss-120b": "GPT OSS 120B",
-  "deepseek-ai/deepseek-v4.1-flash": "DeepSeek V4.1 Flash",
+  "deepseek-ai/deepseek-v4.1-flash-1017": "DeepSeek V4.1 Flash 1017",
   "deepseek-ai/deepseek-v4-pro": "DeepSeek V4 Pro",
   "moonshotai/kimi-k3": "Kimi K3",
   "zai-org/glm-5.3": "GLM 5.3",
@@ -106,7 +106,7 @@ const VENDOR_LABELS: Readonly<Record<string, string>> = {
 
 export const FALLBACK_MODEL_METADATA: readonly AiandModelMetadata[] = [
   model("openai/gpt-oss-120b", 131_072, 131_072),
-  model("deepseek-ai/deepseek-v4.1-flash", 1_048_576, 384_000, true),
+  model("deepseek-ai/deepseek-v4.1-flash-1017", 1_048_576, 384_000, true),
   model("deepseek-ai/deepseek-v4-pro", 1_048_576, 131_072),
   model("moonshotai/kimi-k3", 1_048_576, 262_144, true),
   model("zai-org/glm-5.3", 1_048_576, 131_072),

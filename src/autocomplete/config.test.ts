@@ -34,7 +34,7 @@ test("keeps the configuration section and setting keys stable", () => {
 });
 
 test("uses the documented inline suggestion defaults", () => {
-  assert.equal(DEFAULT_INLINE_MODEL, "deepseek-ai/deepseek-v4.1-flash");
+  assert.equal(DEFAULT_INLINE_MODEL, "deepseek-ai/deepseek-v4.1-flash-1017");
   assert.equal(DEFAULT_INLINE_DEBOUNCE_MS, 300);
   assert.equal(DEFAULT_INLINE_TIMEOUT_MS, 3_000);
   assert.equal(DEFAULT_INLINE_MAX_TOKENS, 128);
@@ -85,6 +85,7 @@ test("returns the fallback verbatim even when it falls outside the range", () =>
 test("moves retired inline model ids to the default and keeps the rest", () => {
   assert.equal(inlineModelId("deepseek-ai/deepseek-v4-flash"), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("zai-org/glm-5.2"), DEFAULT_INLINE_MODEL);
+  assert.equal(inlineModelId("deepseek-ai/deepseek-v4.1-flash"), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId(undefined), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("  "), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("google/gemma-4-31b-it"), "google/gemma-4-31b-it");
