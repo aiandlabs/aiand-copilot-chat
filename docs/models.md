@@ -13,12 +13,12 @@ are enriched from the canonical `aiand` provider in a six-hour models.dev
 snapshot stored in VS Code `globalState`. Stale metadata is returned immediately
 while refresh runs and remains available during models.dev outages.
 
-The fallback snapshot was last verified against live inference on 2026-09-28. The DeepSeek V4.1 Flash row comes from the live catalog on 2026-10-26:
+The fallback snapshot was last verified against live inference on 2026-09-28. The DeepSeek V4.1 Flash 1017 row comes from the live catalog on 2026-10-30:
 
 | Model | Context | Max output | Images | Tools | Reasoning efforts (default) |
 | --- | ---: | ---: | :---: | :---: | --- |
 | GPT OSS 120B (`openai/gpt-oss-120b`) | 128K | 128K | No | Yes | low · medium · **high** (medium) |
-| DeepSeek V4.1 Flash (`deepseek-ai/deepseek-v4.1-flash`) | 1M | 375K | Yes | Yes | none · **high** · max (high) |
+| DeepSeek V4.1 Flash 1017 (`deepseek-ai/deepseek-v4.1-flash-1017`) | 1M | 375K | Yes | Yes | none · **high** · max (high) |
 | DeepSeek V4 Pro (`deepseek-ai/deepseek-v4-pro`) | 1M | 128K | No | Yes | **none** · high · max (none) |
 | Kimi K3 (`moonshotai/kimi-k3`) | 1M | 256K | Yes | Yes | low · high · **max** (max) |
 | GLM 5.3 (`zai-org/glm-5.3`) | 1M | 128K | No | Yes | low · high · **max** (max) |
