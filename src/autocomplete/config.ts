@@ -32,7 +32,7 @@ const RETIRED_INLINE_MODELS = new Set([
 /** The configured inline model, with retired ids moved to the default. */
 export function inlineModelId(configured: string | undefined): string {
   const id = configured?.trim();
-  return !id || RETIRED_INLINE_MODELS.has(id) ? DEFAULT_INLINE_MODEL : id;
+  return !id || RETIRED_INLINE_MODELS.has(id.toLowerCase()) ? DEFAULT_INLINE_MODEL : id;
 }
 export const DEFAULT_INLINE_DEBOUNCE_MS = 300;
 export const DEFAULT_INLINE_TIMEOUT_MS = 3_000;
