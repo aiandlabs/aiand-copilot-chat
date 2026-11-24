@@ -85,6 +85,18 @@ test("provides documented fallback limits", () => {
     defaultReasoningEffort: "none",
     cost: { input: 0.2, cacheRead: 0.05, output: 0.5 },
   });
+  assert.deepEqual(getModelMetadata("qwen/qwen3.8-27b"), {
+    id: "qwen/qwen3.8-27b",
+    name: "Qwen 3.8 27B",
+    version: "unknown",
+    contextLength: 262_144,
+    maxOutputTokens: 32_768,
+    imageInput: true,
+    toolCalling: true,
+    reasoningEfforts: ["none", "low", "medium", "xhigh"],
+    defaultReasoningEffort: "xhigh",
+    cost: { input: 0.4, cacheRead: 0.2, output: 3 },
+  });
   assert.equal(formatTokenLimit(1_000_000), "1M");
   assert.equal(formatTokenLimit(262_144), "256K");
 });
@@ -150,7 +162,7 @@ test("ignores a live default the model does not list and keeps the model default
     },
   ]);
   assert.deepEqual(live.reasoningEfforts, ["none", "low", "medium", "xhigh"]);
-  assert.equal(live.defaultReasoningEffort, "medium");
+  assert.equal(live.defaultReasoningEffort, "xhigh");
 });
 
 test("reads ai& capabilities arrays and per-million pricing", () => {

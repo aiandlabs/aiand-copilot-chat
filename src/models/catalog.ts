@@ -32,7 +32,7 @@ const FALLBACK_REASONING_EFFORTS: Readonly<Record<string, {
   "moonshotai/kimi-k3": { efforts: ["low", "high", "max"], defaultEffort: "max" },
   "zai-org/glm-5.3": { efforts: ["low", "high", "max"], defaultEffort: "max" },
   "google/gemma-4-31b-it": { efforts: ["none", "high"], defaultEffort: "none" },
-  "qwen/qwen3.8-27b": { efforts: ["none", "low", "medium", "xhigh"], defaultEffort: "medium" },
+  "qwen/qwen3.8-27b": { efforts: ["none", "low", "medium", "xhigh"], defaultEffort: "xhigh" },
   "motif-technologies/motif-3": { efforts: ["none", "high"], defaultEffort: "high" },
 };
 
@@ -108,7 +108,7 @@ export const FALLBACK_MODEL_METADATA: readonly AiandModelMetadata[] = [
   model("moonshotai/kimi-k3", 1_048_576, 262_144, true),
   model("zai-org/glm-5.3", 1_048_576, 131_072),
   model("google/gemma-4-31b-it", 262_144, 262_144, true),
-  model("qwen/qwen3.8-27b", 262_144, 262_144, true),
+  model("qwen/qwen3.8-27b", 262_144, 32_768, true),
   model("motif-technologies/motif-3", 262_144, 131_072),
 ];
 

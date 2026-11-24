@@ -13,6 +13,8 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 - ai& retires Qwen 3.6 27B on 2026-12-02 0:00 JST, and it leaves the fallback
   catalog and the inline model picker. An `aiandCopilot.inlineSuggestionsModel`
   that still names it now uses Qwen 3.8 27B instead of failing silently.
+- Offline fallback metadata for Qwen 3.8 27B now matches the live ai&
+  catalog: default reasoning effort `xhigh` and 32,768 max output tokens.
 
 ## [1.0.3] - 2026-10-30
 

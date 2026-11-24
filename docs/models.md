@@ -13,7 +13,7 @@ are enriched from the canonical `aiand` provider in a six-hour models.dev
 snapshot stored in VS Code `globalState`. Stale metadata is returned immediately
 while refresh runs and remains available during models.dev outages.
 
-The fallback snapshot was last verified against live inference on 2026-09-28. The DeepSeek V4.1 Flash 1017 row comes from the live catalog on 2026-10-30:
+The fallback snapshot was last verified against live inference on 2026-09-28. The DeepSeek V4.1 Flash 1017 row comes from the live catalog on 2026-10-30, and the Qwen 3.8 27B row on 2026-11-24:
 
 | Model | Context | Max output | Images | Tools | Reasoning efforts (default) |
 | --- | ---: | ---: | :---: | :---: | --- |
@@ -23,7 +23,7 @@ The fallback snapshot was last verified against live inference on 2026-09-28. Th
 | Kimi K3 (`moonshotai/kimi-k3`) | 1M | 256K | Yes | Yes | low · high · **max** (max) |
 | GLM 5.3 (`zai-org/glm-5.3`) | 1M | 128K | No | Yes | low · high · **max** (max) |
 | Gemma 4 31B IT (`google/gemma-4-31b-it`) | 256K | 256K | Yes | Yes | **none** · high (none) |
-| Qwen 3.8 27B (`qwen/qwen3.8-27b`) | 256K | 256K | Yes | Yes | none · low · **medium** · xhigh (medium) |
+| Qwen 3.8 27B (`qwen/qwen3.8-27b`) | 256K | 32K | Yes | Yes | none · low · medium · **xhigh** (xhigh) |
 | Motif 3 (`motif-technologies/motif-3`) | 256K | 128K | No | Yes | none · **high** (high) |
 
 Live catalog results remain authoritative when they differ from this snapshot.
@@ -38,7 +38,7 @@ Effort picker lists exactly the efforts a model accepts (the live
 `reasoning_efforts` field), and sends only a value from that list. The
 selection falls back to the model's own default when the workspace default is
 not supported — for example, `aiandCopilot.reasoningEffort: "high"` applies to
-Gemma 4 31B IT but resolves to Qwen 3.8 27B's own default (`medium`) because
+Gemma 4 31B IT but resolves to Qwen 3.8 27B's own default (`xhigh`) because
 that model does not accept `high`.
 
 Each model's picker default prefers the workspace setting when the model
