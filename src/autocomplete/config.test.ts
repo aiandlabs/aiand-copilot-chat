@@ -82,11 +82,13 @@ test("returns the fallback verbatim even when it falls outside the range", () =>
   assert.equal(clampNumber(undefined, -1, 50, 2_000), -1);
 });
 
-test("moves retired inline model ids to the default and keeps the rest", () => {
+test("moves retired inline model ids to their replacement and keeps the rest", () => {
   assert.equal(inlineModelId("deepseek-ai/deepseek-v4-flash"), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("zai-org/glm-5.2"), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("deepseek-ai/deepseek-v4.1-flash"), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("DeepSeek-AI/DeepSeek-V4.1-Flash"), DEFAULT_INLINE_MODEL);
+  assert.equal(inlineModelId("qwen/qwen3.6-27b"), "qwen/qwen3.8-27b");
+  assert.equal(inlineModelId(" Qwen/Qwen3.6-27B "), "qwen/qwen3.8-27b");
   assert.equal(inlineModelId(undefined), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("  "), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("google/gemma-4-31b-it"), "google/gemma-4-31b-it");

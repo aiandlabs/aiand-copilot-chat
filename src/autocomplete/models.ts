@@ -33,11 +33,6 @@ export const INLINE_MODEL_CANDIDATES: readonly InlineModelCandidate[] = [
     detail: "Fastest measured first token; image-capable instruct model.",
   },
   {
-    id: "qwen/qwen3.6-27b",
-    badge: "measured ~0.5s TTFB",
-    detail: "Fast first token with a compact Qwen model.",
-  },
-  {
     id: "qwen/qwen3.8-27b",
     badge: "measured ~0.5s TTFB",
     detail: "Fast first token with a compact Qwen model.",

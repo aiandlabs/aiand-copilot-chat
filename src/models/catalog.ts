@@ -10,7 +10,6 @@ export const FALLBACK_MODELS = [
   "zai-org/glm-5.3",
   "google/gemma-4-31b-it",
   "qwen/qwen3.8-27b",
-  "qwen/qwen3.6-27b",
   "motif-technologies/motif-3",
 ] as const;
 
@@ -34,7 +33,6 @@ const FALLBACK_REASONING_EFFORTS: Readonly<Record<string, {
   "zai-org/glm-5.3": { efforts: ["low", "high", "max"], defaultEffort: "max" },
   "google/gemma-4-31b-it": { efforts: ["none", "high"], defaultEffort: "none" },
   "qwen/qwen3.8-27b": { efforts: ["none", "low", "medium", "xhigh"], defaultEffort: "medium" },
-  "qwen/qwen3.6-27b": { efforts: ["none", "high"], defaultEffort: "high" },
   "motif-technologies/motif-3": { efforts: ["none", "high"], defaultEffort: "high" },
 };
 
@@ -90,7 +88,6 @@ const OFFICIAL_MODEL_NAMES: Readonly<Record<string, string>> = {
   "zai-org/glm-5.3": "GLM 5.3",
   "google/gemma-4-31b-it": "Gemma 4 31B IT",
   "qwen/qwen3.8-27b": "Qwen 3.8 27B",
-  "qwen/qwen3.6-27b": "Qwen 3.6 27B",
   "motif-technologies/motif-3": "Motif 3",
 };
 
@@ -112,7 +109,6 @@ export const FALLBACK_MODEL_METADATA: readonly AiandModelMetadata[] = [
   model("zai-org/glm-5.3", 1_048_576, 131_072),
   model("google/gemma-4-31b-it", 262_144, 262_144, true),
   model("qwen/qwen3.8-27b", 262_144, 262_144, true),
-  model("qwen/qwen3.6-27b", 262_144, 262_144, true),
   model("motif-technologies/motif-3", 262_144, 131_072),
 ];
 

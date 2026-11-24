@@ -22,17 +22,19 @@ export const DEFAULT_INLINE_MODEL = "deepseek-ai/deepseek-v4.1-flash-1017";
 
 // The picker writes its choice to Global settings even when it is the default,
 // so a package.json default change never reaches those users.
-const RETIRED_INLINE_MODELS = new Set([
-  "deepseek-ai/deepseek-v4-flash",
-  "deepseek-ai/deepseek-v4.1-flash",
-  "moonshotai/kimi-k2.7-code",
-  "zai-org/glm-5.2",
+const RETIRED_INLINE_MODELS: ReadonlyMap<string, string> = new Map([
+  ["deepseek-ai/deepseek-v4-flash", DEFAULT_INLINE_MODEL],
+  ["deepseek-ai/deepseek-v4.1-flash", DEFAULT_INLINE_MODEL],
+  ["moonshotai/kimi-k2.7-code", DEFAULT_INLINE_MODEL],
+  ["zai-org/glm-5.2", DEFAULT_INLINE_MODEL],
+  ["qwen/qwen3.6-27b", "qwen/qwen3.8-27b"],
 ]);
 
-/** The configured inline model, with retired ids moved to the default. */
+/** The configured inline model, with retired ids moved to their replacement. */
 export function inlineModelId(configured: string | undefined): string {
   const id = configured?.trim();
-  return !id || RETIRED_INLINE_MODELS.has(id.toLowerCase()) ? DEFAULT_INLINE_MODEL : id;
+  if (!id) return DEFAULT_INLINE_MODEL;
+  return RETIRED_INLINE_MODELS.get(id.toLowerCase()) ?? id;
 }
 export const DEFAULT_INLINE_DEBOUNCE_MS = 300;
 export const DEFAULT_INLINE_TIMEOUT_MS = 3_000;
