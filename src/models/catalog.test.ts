@@ -14,26 +14,26 @@ import {
 } from "./catalog";
 
 test("accepts ai& chat model IDs and excludes non-chat families", () => {
-  assert.equal(isAiandChatModel("deepseek-ai/deepseek-v4-pro"), true);
+  assert.equal(isAiandChatModel("deepseek-ai/deepseek-v4-pro-0813"), true);
   assert.equal(isAiandChatModel("moonshotai/kimi-k3"), true);
   assert.equal(isAiandChatModel("multilingual-e5-large-instruct"), true);
   assert.equal(isAiandChatModel("text-embedding-3-large"), false);
   assert.equal(isAiandChatModel("image/generator"), false);
+  assert.equal(isAiandChatModel("nvidia/nvidia-nemotron-3.5-transcribe-30b-a4b"), false);
 });
 
 test("orders documented fallback models before other discovered models", () => {
   assert.deepEqual(
     orderModels(["future-chat", "zai-org/glm-5.3", "OPENAI/GPT-OSS-120B", "openai/gpt-oss-120b"]),
-    [
-      FALLBACK_MODELS[0],
-      FALLBACK_MODELS[4],
-      "future-chat",
-    ],
+    ["openai/gpt-oss-120b", "zai-org/glm-5.3", "future-chat"],
   );
 });
 
 test("formats model IDs for the VS Code picker", () => {
-  assert.equal(formatModelName("deepseek-ai/deepseek-v4-pro"), "DeepSeek V4 Pro");
+  assert.equal(formatModelName("deepseek-ai/deepseek-v4-pro-0813"), "DeepSeek V4 Pro 0813");
+  assert.equal(formatModelName("moonshotai/kimi-k3.1-pro"), "Kimi K3.1 Pro");
+  assert.equal(formatModelName("zai-org/glm-5.3-flash"), "GLM 5.3 Flash");
+  assert.equal(formatModelName("meta/muse-spark-open"), "Muse Spark Open");
   assert.equal(formatModelName("zai-org/glm-5.3"), "GLM 5.3");
   assert.equal(formatModelName("openai/gpt-oss-120b"), "GPT OSS 120B");
   assert.equal(formatModelName("qwen/qwen3.8-27b"), "Qwen 3.8 27B");
@@ -42,9 +42,11 @@ test("formats model IDs for the VS Code picker", () => {
 test("provides documented fallback limits", () => {
   for (const id of [
     "deepseek-ai/deepseek-v4.1-flash-1017",
-    "deepseek-ai/deepseek-v4-pro",
+    "deepseek-ai/deepseek-v4-pro-0813",
+    "moonshotai/kimi-k3.1-pro",
     "moonshotai/kimi-k3",
     "zai-org/glm-5.3",
+    "meta/muse-spark-open",
   ]) {
     assert.equal(getModelMetadata(id).contextLength, 1_048_576);
   }
@@ -84,6 +86,18 @@ test("provides documented fallback limits", () => {
     reasoningEfforts: ["none", "high"],
     defaultReasoningEffort: "none",
     cost: { input: 0.2, cacheRead: 0.05, output: 0.5 },
+  });
+  assert.deepEqual(getModelMetadata("qwen/qwen3.8-27b"), {
+    id: "qwen/qwen3.8-27b",
+    name: "Qwen 3.8 27B",
+    version: "unknown",
+    contextLength: 262_144,
+    maxOutputTokens: 32_768,
+    imageInput: true,
+    toolCalling: true,
+    reasoningEfforts: ["none", "low", "medium", "xhigh"],
+    defaultReasoningEffort: "xhigh",
+    cost: { input: 0.4, cacheRead: 0.2, output: 3 },
   });
   assert.equal(formatTokenLimit(1_000_000), "1M");
   assert.equal(formatTokenLimit(262_144), "256K");
@@ -150,7 +164,7 @@ test("ignores a live default the model does not list and keeps the model default
     },
   ]);
   assert.deepEqual(live.reasoningEfforts, ["none", "low", "medium", "xhigh"]);
-  assert.equal(live.defaultReasoningEffort, "medium");
+  assert.equal(live.defaultReasoningEffort, "xhigh");
 });
 
 test("reads ai& capabilities arrays and per-million pricing", () => {
@@ -172,8 +186,8 @@ test("reads ai& capabilities arrays and per-million pricing", () => {
 });
 
 test("fills descriptive and capability metadata from the ai& models.dev snapshot", () => {
-  const enriched = enrichModelMetadata(getModelMetadata("deepseek-ai/deepseek-v4-pro"), {
-    id: "deepseek-ai/deepseek-v4-pro",
+  const enriched = enrichModelMetadata(getModelMetadata("deepseek-ai/deepseek-v4-pro-0813"), {
+    id: "deepseek-ai/deepseek-v4-pro-0813",
     description: "General coding model",
     imageInput: true,
     toolCalling: true,

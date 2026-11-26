@@ -59,8 +59,8 @@ test("per-request effort overrides the workspace default within the model's list
 
 test("an effort the model does not support falls back to the model's own default", () => {
   // qwen3.8 supports none/low/medium/xhigh but not high → resolves to its own default.
-  const qwen = modelEffortSpec(["none", "low", "medium", "xhigh"], "medium")!;
-  assert.equal(resolveReasoningEffort(qwen, { reasoningEffort: "high" }, "high"), "medium");
+  const qwen = modelEffortSpec(["none", "low", "medium", "xhigh"], "xhigh")!;
+  assert.equal(resolveReasoningEffort(qwen, { reasoningEffort: "high" }, "high"), "xhigh");
   // deepseek-flash has no medium → falls back to its own default ("none").
   const flash = modelEffortSpec(["none", "high", "max"], "none")!;
   assert.equal(resolveReasoningEffort(flash, undefined, "medium"), "none");

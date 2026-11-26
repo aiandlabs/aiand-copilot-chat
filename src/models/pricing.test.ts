@@ -30,7 +30,7 @@ test("converts USD per-million rates to VS Code pricing fields", () => {
 test("uses current official rates when live metadata omits pricing", () => {
   assert.deepEqual(aiandModelCost("openai/gpt-oss-120b"), { input: 0.15, cacheRead: 0.08, output: 0.6 });
   assert.deepEqual(aiandModelCost("google/gemma-4-31b-it"), { input: 0.2, cacheRead: 0.05, output: 0.5 });
-  assert.deepEqual(aiandModelCost("deepseek-ai/deepseek-v4-pro", { input: 1, output: 2 }), { input: 1, output: 2 });
+  assert.deepEqual(aiandModelCost("deepseek-ai/deepseek-v4-pro-0813", { input: 1, output: 2 }), { input: 1, output: 2 });
   assert.equal(aiandModelCost("future-model"), undefined);
 });
 

@@ -8,6 +8,28 @@ author as `grikomsn.aiand-copilot-chat`; 1.0.0 is the first release from ai& as
 
 ## [Unreleased]
 
+### Changed
+
+- ai& retires Qwen 3.6 27B on 2026-12-02 0:00 JST, and it leaves the fallback
+  catalog and the inline model picker. An `aiandCopilot.inlineSuggestionsModel`
+  that still names it now uses Qwen 3.8 27B instead of failing silently.
+- Offline fallback metadata for Qwen 3.8 27B now matches the live ai&
+  catalog: default reasoning effort `xhigh` and 32,768 max output tokens.
+- ai& retires DeepSeek V4 Pro on 2026-12-02 0:00 JST. DeepSeek V4 Pro 0813
+  replaces it in the fallback catalog and the inline model picker. An
+  `aiandCopilot.inlineSuggestionsModel` that still names DeepSeek V4 Pro now
+  uses DeepSeek V4 Pro 0813 instead of failing silently.
+
+### Added
+
+- Kimi K3.1 Pro, GLM 5.3 Flash and Muse Spark Open join the fallback catalog,
+  so they show their display names and keep their limits, reasoning efforts
+  and prices when the live catalog is unavailable.
+
+### Fixed
+
+- Transcription models no longer appear in the chat model picker.
+
 ## [1.0.3] - 2026-10-30
 
 ### Changed
