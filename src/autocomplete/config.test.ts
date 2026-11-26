@@ -89,6 +89,8 @@ test("moves retired inline model ids to their replacement and keeps the rest", (
   assert.equal(inlineModelId("DeepSeek-AI/DeepSeek-V4.1-Flash"), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("qwen/qwen3.6-27b"), "qwen/qwen3.8-27b");
   assert.equal(inlineModelId(" Qwen/Qwen3.6-27B "), "qwen/qwen3.8-27b");
+  assert.equal(inlineModelId("deepseek-ai/DeepSeek-V4-Pro"), "deepseek-ai/deepseek-v4-pro-0813");
+  assert.equal(inlineModelId("deepseek-ai/deepseek-v4-pro-0813"), "deepseek-ai/deepseek-v4-pro-0813");
   assert.equal(inlineModelId(undefined), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("  "), DEFAULT_INLINE_MODEL);
   assert.equal(inlineModelId("google/gemma-4-31b-it"), "google/gemma-4-31b-it");

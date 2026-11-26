@@ -43,9 +43,9 @@ export const INLINE_MODEL_CANDIDATES: readonly InlineModelCandidate[] = [
     detail: "GLM model; reasoning runs at its lightest supported effort.",
   },
   {
-    id: "deepseek-ai/deepseek-v4-pro",
-    badge: "measured ~0.7s TTFB · larger",
-    detail: "Larger DeepSeek model; prefer the flash tier for inline latency.",
+    id: "deepseek-ai/deepseek-v4-pro-0813",
+    badge: "larger · latency not measured",
+    detail: "Successor of DeepSeek V4 Pro (retired 2026-12-02); prefer the flash tier for inline latency.",
   },
   {
     id: "openai/gpt-oss-120b",

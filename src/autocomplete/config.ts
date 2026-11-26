@@ -28,6 +28,7 @@ const RETIRED_INLINE_MODELS: ReadonlyMap<string, string> = new Map([
   ["moonshotai/kimi-k2.7-code", DEFAULT_INLINE_MODEL],
   ["zai-org/glm-5.2", DEFAULT_INLINE_MODEL],
   ["qwen/qwen3.6-27b", "qwen/qwen3.8-27b"],
+  ["deepseek-ai/deepseek-v4-pro", "deepseek-ai/deepseek-v4-pro-0813"],
 ]);
 
 /** The configured inline model, with retired ids moved to their replacement. */
